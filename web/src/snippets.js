@@ -1,7 +1,7 @@
 // Usage snippets for the editor's code box and the docs. They use the published package:
-//   static: polypal(seed, options) -> SVG string        live: animate(host, polypal, options)
-//   React:  <Polypal /> and <LivePolypal /> from "@dhriyama/polypals/react"
-import pkg from '@dhriyama/polypals/package.json';
+//   static: blobmate(seed, options) -> SVG string        live: animate(host, blobmate, options)
+//   React:  <Blobmate /> and <LiveBlobmate /> from "blobmates/react"
+import pkg from 'blobmates/package.json';
 
 const NAME = pkg.name;
 const CDN = `https://cdn.jsdelivr.net/npm/${NAME}@${pkg.version}/src`;
@@ -35,22 +35,22 @@ function jsxProps(entries) {
 
 export function snippet(fw, kind, s) {
   const staticOpts = lit(s.mood !== 'neutral' ? { ...s.pins, mood: s.mood } : s.pins);
-  const call = `polypal(${JSON.stringify(s.name)}, ${staticOpts})`;
+  const call = `blobmate(${JSON.stringify(s.name)}, ${staticOpts})`;
   const live = (pad) => liveOptions(s, pad);
   const isLive = kind === 'live';
 
-  const imports = `import { polypal } from "${NAME}";${isLive ? `\nimport { animate } from "${NAME}/runtime";` : ''}`;
+  const imports = `import { blobmate } from "${NAME}";${isLive ? `\nimport { animate } from "${NAME}/runtime";` : ''}`;
 
   if (fw === 'js') {
     return isLive
-      ? `${imports}\n\nconst rt = animate(document.querySelector("#box"), polypal, ${live('')});\n\n// rt.set({ mood: "angry" });  rt.destroy();`
-      : `${imports}\n\ndocument.querySelector("#polypal").innerHTML = ${call};`;
+      ? `${imports}\n\nconst rt = animate(document.querySelector("#box"), blobmate, ${live('')});\n\n// rt.set({ mood: "angry" });  rt.destroy();`
+      : `${imports}\n\ndocument.querySelector("#blobmate").innerHTML = ${call};`;
   }
 
   if (fw === 'react') {
     if (!isLive) {
       const props = jsxProps([['seed', s.name], ...Object.entries(s.mood !== 'neutral' ? { ...s.pins, mood: s.mood } : s.pins)]);
-      return `import { Polypal } from "${NAME}/react";\n\nexport function Example() {\n  return <Polypal ${props} />;\n}`;
+      return `import { Blobmate } from "${NAME}/react";\n\nexport function Example() {\n  return <Blobmate ${props} />;\n}`;
     }
     const props = jsxProps([
       ['seed', s.name],
@@ -61,32 +61,32 @@ export function snippet(fw, kind, s) {
       ...(s.react ? [['react', true]] : []),
     ]);
     return s.roam
-      ? `import { LivePolypal } from "${NAME}/react";\n\n// with roam it fills its parent, so give the parent a size\nexport function Example() {\n  return (\n    <div style={{ position: "relative", height: 320 }}>\n      <LivePolypal ${props} />\n    </div>\n  );\n}`
-      : `import { LivePolypal } from "${NAME}/react";\n\nexport function Example() {\n  return <LivePolypal ${props} size={120} />;\n}\n\n// runs in the browser only: in Next.js add "use client" at the top`;
+      ? `import { LiveBlobmate } from "${NAME}/react";\n\n// with roam it fills its parent, so give the parent a size\nexport function Example() {\n  return (\n    <div style={{ position: "relative", height: 320 }}>\n      <LiveBlobmate ${props} />\n    </div>\n  );\n}`
+      : `import { LiveBlobmate } from "${NAME}/react";\n\nexport function Example() {\n  return <LiveBlobmate ${props} size={120} />;\n}\n\n// runs in the browser only: in Next.js add "use client" at the top`;
   }
 
   if (fw === 'vue') {
     return isLive
-      ? `<script setup>\nimport { onBeforeUnmount, onMounted, ref } from "vue";\n${imports}\n\nconst host = ref(null);\nlet rt;\nonMounted(() => {\n  rt = animate(host.value, polypal, ${live('  ')});\n});\nonBeforeUnmount(() => rt.destroy());\n</script>\n\n<template>\n  <div ref="host" style="position: relative; width: 240px; height: 240px" />\n</template>`
+      ? `<script setup>\nimport { onBeforeUnmount, onMounted, ref } from "vue";\n${imports}\n\nconst host = ref(null);\nlet rt;\nonMounted(() => {\n  rt = animate(host.value, blobmate, ${live('  ')});\n});\nonBeforeUnmount(() => rt.destroy());\n</script>\n\n<template>\n  <div ref="host" style="position: relative; width: 240px; height: 240px" />\n</template>`
       : `<script setup>\n${imports}\n\nconst svg = ${call};\n</script>\n\n<template>\n  <span v-html="svg" />\n</template>`;
   }
 
   if (fw === 'svelte') {
     const ind = (t) => t.replace(/^/gm, '  ');
     return isLive
-      ? `<script>\n  import { onMount } from "svelte";\n${ind(imports)}\n\n  let host;\n  onMount(() => {\n    const rt = animate(host, polypal, ${live('    ')});\n    return () => rt.destroy();\n  });\n</script>\n\n<div bind:this={host} style="position: relative; width: 240px; height: 240px"></div>`
+      ? `<script>\n  import { onMount } from "svelte";\n${ind(imports)}\n\n  let host;\n  onMount(() => {\n    const rt = animate(host, blobmate, ${live('    ')});\n    return () => rt.destroy();\n  });\n</script>\n\n<div bind:this={host} style="position: relative; width: 240px; height: 240px"></div>`
       : `<script>\n${ind(imports)}\n\n  const svg = ${call};\n</script>\n\n{@html svg}`;
   }
 
   if (fw === 'angular') {
     return isLive
-      ? `import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";\n${imports}\n\n@Component({\n  selector: "app-live-polypal",\n  standalone: true,\n  template: \`<div #host style="position: relative; width: 240px; height: 240px"></div>\`,\n})\nexport class LivePolypalComponent implements AfterViewInit, OnDestroy {\n  @ViewChild("host") host!: ElementRef<HTMLElement>;\n  private rt?: { destroy(): void };\n\n  ngAfterViewInit() {\n    this.rt = animate(this.host.nativeElement, polypal, ${live('    ')});\n  }\n  ngOnDestroy() {\n    this.rt?.destroy();\n  }\n}`
-      : `import { Component } from "@angular/core";\nimport { DomSanitizer, SafeHtml } from "@angular/platform-browser";\n${imports}\n\n@Component({\n  selector: "app-polypal",\n  standalone: true,\n  template: \`<span [innerHTML]="svg"></span>\`,\n})\nexport class PolypalComponent {\n  svg: SafeHtml;\n  constructor(sanitizer: DomSanitizer) {\n    // Angular strips <svg> unless it is explicitly trusted\n    this.svg = sanitizer.bypassSecurityTrustHtml(${call});\n  }\n}`;
+      ? `import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";\n${imports}\n\n@Component({\n  selector: "app-live-blobmate",\n  standalone: true,\n  template: \`<div #host style="position: relative; width: 240px; height: 240px"></div>\`,\n})\nexport class LiveBlobmateComponent implements AfterViewInit, OnDestroy {\n  @ViewChild("host") host!: ElementRef<HTMLElement>;\n  private rt?: { destroy(): void };\n\n  ngAfterViewInit() {\n    this.rt = animate(this.host.nativeElement, blobmate, ${live('    ')});\n  }\n  ngOnDestroy() {\n    this.rt?.destroy();\n  }\n}`
+      : `import { Component } from "@angular/core";\nimport { DomSanitizer, SafeHtml } from "@angular/platform-browser";\n${imports}\n\n@Component({\n  selector: "app-blobmate",\n  standalone: true,\n  template: \`<span [innerHTML]="svg"></span>\`,\n})\nexport class BlobmateComponent {\n  svg: SafeHtml;\n  constructor(sanitizer: DomSanitizer) {\n    // Angular strips <svg> unless it is explicitly trusted\n    this.svg = sanitizer.bypassSecurityTrustHtml(${call});\n  }\n}`;
   }
 
   // Plain HTML, no build step: load the package straight from a CDN.
-  const head = `<script type="module">\n  import { polypal } from "${CDN}/main.js";\n${isLive ? `  import { animate } from "${CDN}/runtime.js";\n` : ''}`;
+  const head = `<script type="module">\n  import { blobmate } from "${CDN}/main.js";\n${isLive ? `  import { animate } from "${CDN}/runtime.js";\n` : ''}`;
   return isLive
-    ? `<div id="box" style="position: relative; width: 480px; height: 320px"></div>\n\n${head}\n  animate(document.getElementById("box"), polypal, ${live('  ')});\n</script>`
-    : `<div id="polypal"></div>\n\n${head}\n  document.getElementById("polypal").innerHTML = ${call};\n</script>`;
+    ? `<div id="box" style="position: relative; width: 480px; height: 320px"></div>\n\n${head}\n  animate(document.getElementById("box"), blobmate, ${live('  ')});\n</script>`
+    : `<div id="blobmate"></div>\n\n${head}\n  document.getElementById("blobmate").innerHTML = ${call};\n</script>`;
 }

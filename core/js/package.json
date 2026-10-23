@@ -1,15 +1,15 @@
 {
-  "name": "@dhriyama/polypals",
+  "name": "blobmates",
   "version": "0.1.0",
   "description": "Friendly blob avatars that feel alive: deterministic from a name, editable, and animated.",
   "keywords": ["avatar", "avatars", "blob", "identicon", "profile-picture", "svg", "generative", "mascot", "react", "animation"],
   "license": "MIT",
   "author": "dhri-yama (https://github.com/dhri-yama)",
-  "homepage": "https://github.com/dhri-yama/polypals#readme",
-  "bugs": "https://github.com/dhri-yama/polypals/issues",
+  "homepage": "https://github.com/dhri-yama/blobmates#readme",
+  "bugs": "https://github.com/dhri-yama/blobmates/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dhri-yama/polypals.git",
+    "url": "git+https://github.com/dhri-yama/blobmates.git",
     "directory": "core/js"
   },
   "type": "module",

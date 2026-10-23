@@ -1,4 +1,4 @@
-// polypal(seed, opts) -> SVG string. The seed picks every axis by default; any axis in opts is "pinned" and wins.
+// blobmate(seed, opts) -> SVG string. The seed picks every axis by default; any axis in opts is "pinned" and wins.
 // mood/gaze/blink are runtime state, never seeded. Integer-only seed math so Kotlin/Swift ports can match bit for bit.
 //
 // Pins: style, body, color (hex or palette id), variant (eye variant #), eyeSize, faceY, mouth, brow,
@@ -25,7 +25,7 @@ const shade = (hex) => {
 };
 const SLOTS = ['top', 'eyes', 'face', 'cheeks'];
 
-export function makePolypal(P) {
+export function makeBlobmate(P) {
   const weighted = (next, items) => {
     const total = items.reduce((s, [, w]) => s + w, 0);
     let r = next() % total;
@@ -78,7 +78,7 @@ export function makePolypal(P) {
     return P.eyes.blob.open[0];
   };
 
-  function polypal(seed, o = {}) {
+  function blobmate(seed, o = {}) {
     const id = resolve(seed, o);
     const mood = P.moods[o.mood] || P.moods.neutral;
     const st = P.styles[id.style];
@@ -127,7 +127,7 @@ export function makePolypal(P) {
       .replaceAll('{{lid}}', id.body.lid || id.color);
   }
 
-  polypal.resolve = resolve;
-  polypal.parts = P;
-  return polypal;
+  blobmate.resolve = resolve;
+  blobmate.parts = P;
+  return blobmate;
 }

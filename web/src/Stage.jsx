@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { animate } from '@dhriyama/polypals/runtime';
-import { polypal } from './polypal.js';
+import { animate } from 'blobmates/runtime';
+import { blobmate } from './blobmate.js';
 
 // Hosts the library runtime (mood motion, blinking, gaze, roam). React only feeds it props.
 export default function Stage({ name, pins, mood, motion, roam, react }) {
@@ -8,7 +8,7 @@ export default function Stage({ name, pins, mood, motion, roam, react }) {
   const rt = useRef(null);
 
   useEffect(() => {
-    rt.current = animate(host.current, polypal, { seed: name, size: 220 });
+    rt.current = animate(host.current, blobmate, { seed: name, size: 220 });
     return () => rt.current.destroy();
   }, []);
 

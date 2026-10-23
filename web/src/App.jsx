@@ -4,7 +4,7 @@ import Landing from './pages/Landing.jsx';
 import Editor from './pages/Editor.jsx';
 import Docs from './pages/Docs.jsx';
 
-// Small polypals that wander along the navbar. Defined once so the roaming never restarts on route changes.
+// Small blobmates that wander along the navbar. Defined once so the roaming never restarts on route changes.
 const NO_ACC = { top: 'none', eyes: 'none', face: 'none', cheeks: 'none' };
 const NAV_CAST = [
   ['pip', 'cloud', '#4DA3F5', 'happy', 34, 55],
@@ -25,7 +25,7 @@ export default function App() {
     <>
       <header className="nav">
         <RoamField items={NAV_CAST} />
-        <a className="brand" href="#/"><Logo />Polypals</a>
+        <a className="brand" href="#/"><Logo />Blobmates</a>
         <nav>
           {LINKS.map(([to, label]) => (
             <a key={to} href={`#${to}`} className={route === to ? 'active' : ''}>{label}</a>

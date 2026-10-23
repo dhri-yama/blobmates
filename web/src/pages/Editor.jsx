@@ -1,5 +1,5 @@
 import { useCallback, useDeferredValue, useMemo, useState } from 'react';
-import { polypal, P } from '../polypal.js';
+import { blobmate, P } from '../blobmate.js';
 import Panel from '../Panel.jsx';
 import Stage from '../Stage.jsx';
 import { FRAMEWORKS, TESTED, snippet } from '../snippets.js';
@@ -16,7 +16,7 @@ export default function Editor() {
   const [kind, setKind] = useState('static');
   const [codeCopied, setCodeCopied] = useState(false);
   const dPins = useDeferredValue(pins);
-  const moodThumbs = useMemo(() => Object.keys(P.moods).map((m) => [m, polypal(name, { ...dPins, mood: m, size: 52 })]), [name, dPins]);
+  const moodThumbs = useMemo(() => Object.keys(P.moods).map((m) => [m, blobmate(name, { ...dPins, mood: m, size: 52 })]), [name, dPins]);
 
   const setPin = useCallback((k, v) => setPins((p) => {
     const next = { ...p };
@@ -32,7 +32,7 @@ export default function Editor() {
   const count = Object.keys(pins).length;
   // What the name picked for everything that is not pinned, so the code box changes when the name does.
   const picked = useMemo(() => {
-    const r = polypal.resolve(name, pins);
+    const r = blobmate.resolve(name, pins);
     const all = {
       style: r.style, body: r.body.id, color: r.color,
       mouth: r.mouth, brow: r.brow, eyeSize: r.eyeScale,
@@ -49,7 +49,7 @@ export default function Editor() {
     setTimeout(() => setCodeCopied(false), 1200);
   };
 
-  const svg = (size) => polypal(name, { ...pins, mood, size });
+  const svg = (size) => blobmate(name, { ...pins, mood, size });
   const copy = () => {
     navigator.clipboard?.writeText(svg(128));
     setCopied(true);
@@ -121,7 +121,7 @@ export default function Editor() {
             </div>
           </div>
           <div className="codebar">
-            <div className="seg" role="group" aria-label="Polypal type">
+            <div className="seg" role="group" aria-label="Blobmate type">
               {['static', 'live'].map((k) => (
                 <button key={k} className={kind === k ? 'on' : ''} onClick={() => setKind(k)}>{k}</button>
               ))}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Polypal } from '../components.jsx';
-import { P } from '../polypal.js';
+import { Blobmate } from '../components.jsx';
+import { P } from '../blobmate.js';
 import { FRAMEWORKS, INSTALL, TESTED, snippet } from '../snippets.js';
 
 const SECTIONS = [
@@ -29,10 +29,10 @@ export default function Docs() {
 
       <article className="doc">
         <h1>Documentation</h1>
-        <p id="overview">Polypals turns a string (a username, an email, anything) into a friendly blob avatar. The same string always gives the same avatar, on every device. You can then change any part of it, and make it move.</p>
+        <p id="overview">Blobmates turns a string (a username, an email, anything) into a friendly blob avatar. The same string always gives the same avatar, on every device. You can then change any part of it, and make it move.</p>
 
         <div className="try">
-          <Polypal seed={seed} mood={mood} size={96} />
+          <Blobmate seed={seed} mood={mood} size={96} />
           <div>
             <input type="text" value={seed} onChange={(e) => setSeed(e.target.value || 'x')} spellCheck={false} />
             <div className="chips">
@@ -46,21 +46,21 @@ export default function Docs() {
         <h2 id="install">Install</h2>
         <Code>{INSTALL}</Code>
         <p>Then import what you need. TypeScript types are included.</p>
-        <Code>{`import { polypal } from "@dhriyama/polypals";                  // static avatars
-import { animate } from "@dhriyama/polypals/runtime";          // live avatars (browser only)
-import { Polypal, LivePolypal } from "@dhriyama/polypals/react"; // React components`}</Code>
+        <Code>{`import { blobmate } from "blobmates";                  // static avatars
+import { animate } from "blobmates/runtime";          // live avatars (browser only)
+import { Blobmate, LiveBlobmate } from "blobmates/react"; // React components`}</Code>
 
         <h2 id="static">Static avatars</h2>
-        <p><code>polypal(seed, options)</code> returns an SVG string. There is no animation and nothing runs in the browser afterwards, so it suits profile pictures, lists, emails and server rendering.</p>
-        <Code>{`const svg = polypal("sagar", { mood: "happy", size: 96, shape: "circle" });
+        <p><code>blobmate(seed, options)</code> returns an SVG string. There is no animation and nothing runs in the browser afterwards, so it suits profile pictures, lists, emails and server rendering.</p>
+        <Code>{`const svg = blobmate("sagar", { mood: "happy", size: 96, shape: "circle" });
 
 // in React
-<Polypal seed="sagar" mood="happy" size={96} shape="circle" />`}</Code>
+<Blobmate seed="sagar" mood="happy" size={96} shape="circle" />`}</Code>
         <p>A different <code>mood</code> is a different picture. To change expression, swap the image.</p>
 
         <h2 id="live">Live avatars</h2>
-        <p><code>animate(host, polypal, options)</code> draws an avatar inside an element and keeps it alive: it blinks, its eyes follow the pointer, and it moves according to its mood. Browser only.</p>
-        <Code>{`const rt = animate(document.querySelector("#box"), polypal, {
+        <p><code>animate(host, blobmate, options)</code> draws an avatar inside an element and keeps it alive: it blinks, its eyes follow the pointer, and it moves according to its mood. Browser only.</p>
+        <Code>{`const rt = animate(document.querySelector("#box"), blobmate, {
   seed: "sagar",
   mood: "happy",
   size: 120,
@@ -125,7 +125,7 @@ rt.destroy();`}</Code>
             <tr><td><code>size</code></td><td>pixels, default 128</td></tr>
           </tbody>
         </table>
-        <p><code>polypal.resolve(seed, options)</code> returns what the seed chose, which is handy for showing the current value of anything you have not pinned.</p>
+        <p><code>blobmate.resolve(seed, options)</code> returns what the seed chose, which is handy for showing the current value of anything you have not pinned.</p>
 
         <h2 id="moods">Moods</h2>
         <Chips items={Object.keys(P.moods)} />

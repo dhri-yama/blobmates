@@ -1,5 +1,5 @@
 {
-  "name": "polypals-web",
+  "name": "blobmates-web",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dhriyama/polypals": "^0.1.0",
+    "blobmates": "^0.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

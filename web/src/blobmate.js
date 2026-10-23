@@ -1,5 +1,5 @@
 // The site runs on the published package, so it exercises exactly what users install.
-import { polypal, parts } from '@dhriyama/polypals';
+import { blobmate, parts } from 'blobmates';
 
-export { polypal };
+export { blobmate };
 export const P = parts;

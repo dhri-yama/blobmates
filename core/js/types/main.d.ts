@@ -5,7 +5,7 @@ export interface Parts {
   [key: string]: unknown;
 }
 
-export interface PolypalOptions {
+export interface BlobmateOptions {
   /** Look */
   style?: 'blob-face' | 'mood-mark' | 'block-eyes' | 'minimal';
   /** A body id, see `bodies`. */
@@ -57,19 +57,19 @@ export interface Resolved {
   variant: number;
 }
 
-export interface PolypalFn {
+export interface BlobmateFn {
   /** Returns an SVG string. The same seed and options always give the same string. */
-  (seed: string, options?: PolypalOptions): string;
+  (seed: string, options?: BlobmateOptions): string;
   /** What the seed chose (with your pins applied), without drawing. */
-  resolve(seed: string, options?: PolypalOptions): Resolved;
+  resolve(seed: string, options?: BlobmateOptions): Resolved;
   parts: Parts;
 }
 
 /** Build an avatar function from your own parts data. */
-export function makePolypal(parts: Parts): PolypalFn;
+export function makeBlobmate(parts: Parts): BlobmateFn;
 
 /** Ready to use, bound to the bundled parts. */
-export const polypal: PolypalFn;
+export const blobmate: BlobmateFn;
 export const parts: Parts;
 export const moods: string[];
 export const bodies: string[];

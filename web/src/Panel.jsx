@@ -1,5 +1,5 @@
 import { useDeferredValue, useMemo } from 'react';
-import { polypal, P } from './polypal.js';
+import { blobmate, P } from './blobmate.js';
 
 const Svg = ({ svg }) => <span dangerouslySetInnerHTML={{ __html: svg }} style={{ display: 'contents' }} />;
 
@@ -58,8 +58,8 @@ const ACC = [['top', 'Hair & hats'], ['eyes', 'Glasses'], ['face', 'Moustache & 
 export default function Panel({ name, pins, setPin, unpin }) {
   // Thumbnails are the expensive part; let slider drags stay smooth by deferring them.
   const dPins = useDeferredValue(pins);
-  const auto = useMemo(() => polypal.resolve(name, dPins), [name, dPins]);
-  const thumb = (extra) => polypal(name, { ...dPins, size: 52, ...extra });
+  const auto = useMemo(() => blobmate.resolve(name, dPins), [name, dPins]);
+  const thumb = (extra) => blobmate(name, { ...dPins, size: 52, ...extra });
 
   const thumbs = useMemo(() => ({
     body: P.bodies.map((b) => thumb({ body: b.id, style: b.block ? 'block-eyes' : dPins.style })),

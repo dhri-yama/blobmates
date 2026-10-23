@@ -1,4 +1,4 @@
-# Polypals
+# Blobmates
 
 Friendly blob avatars that feel alive. Give it any string (a username, an email, a bot name) and it always draws the same character. Pin any part you want to change, and optionally make it blink, follow the pointer, wander around and react to taps.
 
@@ -7,12 +7,12 @@ Friendly blob avatars that feel alive. Give it any string (a username, an email,
 - **18 moods**, each with its own face and its own movement.
 - **Plain SVG:** static avatars are just an SVG string. No dependencies.
 
-Try the editor and read the docs: https://github.com/dhri-yama/polypals
+Try the editor and read the docs: https://github.com/dhri-yama/blobmates
 
 ## Install
 
 ```bash
-npm install @dhriyama/polypals
+npm install blobmates
 ```
 
 ## Static avatar
@@ -20,39 +20,39 @@ npm install @dhriyama/polypals
 Returns an SVG string. Use it for profile pictures, lists, emails and server rendering.
 
 ```js
-import { polypal } from "@dhriyama/polypals";
+import { blobmate } from "blobmates";
 
-const svg = polypal("sagar", { mood: "happy", size: 96 });
+const svg = blobmate("sagar", { mood: "happy", size: 96 });
 element.innerHTML = svg;
 
 // Pin anything, the name decides the rest
-polypal("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round", shape: "circle" });
+blobmate("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round", shape: "circle" });
 ```
 
 ## React
 
 ```jsx
-import { Polypal, LivePolypal } from "@dhriyama/polypals/react";
+import { Blobmate, LiveBlobmate } from "blobmates/react";
 
-<Polypal seed="sagar" size={64} shape="circle" />
+<Blobmate seed="sagar" size={64} shape="circle" />
 
-<LivePolypal seed="sagar" mood="happy" size={120} react />
+<LiveBlobmate seed="sagar" mood="happy" size={120} react />
 
 // wanders around inside its parent, which needs a size
 <div style={{ height: 320, position: "relative" }}>
-  <LivePolypal seed="sagar" mood="excited" roam />
+  <LiveBlobmate seed="sagar" mood="excited" roam />
 </div>
 ```
 
-`LivePolypal` runs in the browser only. In Next.js, put it in a client component (`"use client"`). `Polypal` works on the server.
+`LiveBlobmate` runs in the browser only. In Next.js, put it in a client component (`"use client"`). `Blobmate` works on the server.
 
 ## Live avatar without React
 
 ```js
-import { polypal } from "@dhriyama/polypals";
-import { animate } from "@dhriyama/polypals/runtime";
+import { blobmate } from "blobmates";
+import { animate } from "blobmates/runtime";
 
-const rt = animate(document.querySelector("#box"), polypal, {
+const rt = animate(document.querySelector("#box"), blobmate, {
   seed: "sagar",
   mood: "happy",
   motion: "follow",        // "none" | "follow" | "idle"
@@ -82,8 +82,8 @@ By default the name decides everything. Any option you pass is pinned.
 | `shape`, `bg`, `size` | `circle`, `rounded` or `square`; a background color; pixels |
 
 ```js
-import { moods, bodies, accessories } from "@dhriyama/polypals";
-polypal.resolve("sagar");   // what the name chose, without drawing
+import { moods, bodies, accessories } from "blobmates";
+blobmate.resolve("sagar");   // what the name chose, without drawing
 ```
 
 Accessories are optional: the name adds one only some of the time, and `"none"` always turns a slot off.
@@ -91,7 +91,7 @@ Accessories are optional: the name adds one only some of the time, and `"none"` 
 ## Notes
 
 - Adding or removing shapes in a new release can change which shape some names pick. Pin `body` if you need an avatar to stay exactly the same across upgrades.
-- A static SVG cannot animate or react on its own. Use `LivePolypal` or `animate` for that.
+- A static SVG cannot animate or react on its own. Use `LiveBlobmate` or `animate` for that.
 - Live avatars redraw their SVG as they move. They are fine for a handful on a page, not for hundreds.
 - With the system's reduced-motion setting on, movement and blinking stop.
 - The `togepi` shape is an egg inspired by a Pokémon. Togepi is a Nintendo / The Pokémon Company character, so think before using it in anything commercial.

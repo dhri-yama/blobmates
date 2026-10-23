@@ -1,9 +1,9 @@
-import type { PolypalFn, PolypalOptions } from './main';
+import type { BlobmateFn, BlobmateOptions } from './main';
 
 export interface AnimateOptions {
   seed?: string;
-  /** Pinned options, same as the options of `polypal()`. */
-  pins?: PolypalOptions;
+  /** Pinned options, same as the options of `blobmate()`. */
+  pins?: BlobmateOptions;
   mood?: string;
   /** Pixels, default 120. */
   size?: number;
@@ -26,4 +26,4 @@ export interface Runtime {
 }
 
 /** Draws a live avatar inside `host` (browser only). Call `destroy()` when the element goes away. */
-export function animate(host: HTMLElement, polypal: PolypalFn, options?: AnimateOptions): Runtime;
+export function animate(host: HTMLElement, blobmate: BlobmateFn, options?: AnimateOptions): Runtime;

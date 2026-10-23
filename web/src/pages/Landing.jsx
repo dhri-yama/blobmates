@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { Polypal, LivePolypal, RoamField } from '../components.jsx';
-import { P } from '../polypal.js';
+import { Blobmate, LiveBlobmate, RoamField } from '../components.jsx';
+import { P } from '../blobmate.js';
 
 // Curated cast for the hero: explicit body + color so the page always looks good, whatever the seed hashes to.
 const CAST = [
@@ -45,7 +45,7 @@ export default function Landing() {
           {MOODS.map((m, i) => (
             <div key={m}>
               <div className="tile">
-                <LivePolypal seed={`mood-${i}`} size={104} mood={m} pins={{ body: BODIES[i % BODIES.length], color: P.palettes[(i * 5) % P.palettes.length].color, top: 'none', eyes: 'none', face: 'none', cheeks: 'none' }} />
+                <LiveBlobmate seed={`mood-${i}`} size={104} mood={m} pins={{ body: BODIES[i % BODIES.length], color: P.palettes[(i * 5) % P.palettes.length].color, top: 'none', eyes: 'none', face: 'none', cheeks: 'none' }} />
               </div>
               <div className="tile-label">{m}</div>
             </div>
@@ -57,13 +57,13 @@ export default function Landing() {
         <h2>Made to be tuned or left alone</h2>
         <p className="lead">Use the name and be done, or pin any single thing: shape, color, eyes, mouth, glasses, a bow.</p>
         <div className="cards">
-          <div className="card"><div className="tile"><Polypal seed="static" pins={{}} /></div><h3>Static</h3><p>One SVG string. Use it for profile pictures, lists and emails.</p></div>
-          <div className="card"><div className="tile"><Polypal seed="static" body="dino-tricera" color="#2FA35A" mood="joyful" /></div><h3>Live</h3><p>Blinks, follows the pointer and can roam around a box you give it.</p></div>
-          <div className="card"><div className="tile"><Polypal seed="static" body="togepi" color="#F7F1E3" eyes="glasses-round" face="handlebar" /></div><h3>Customizable</h3><p>{P.bodies.length} shapes, optional accessories, all editable in the editor.</p></div>
+          <div className="card"><div className="tile"><Blobmate seed="static" pins={{}} /></div><h3>Static</h3><p>One SVG string. Use it for profile pictures, lists and emails.</p></div>
+          <div className="card"><div className="tile"><Blobmate seed="static" body="dino-tricera" color="#2FA35A" mood="joyful" /></div><h3>Live</h3><p>Blinks, follows the pointer and can roam around a box you give it.</p></div>
+          <div className="card"><div className="tile"><Blobmate seed="static" body="togepi" color="#F7F1E3" eyes="glasses-round" face="handlebar" /></div><h3>Customizable</h3><p>{P.bodies.length} shapes, optional accessories, all editable in the editor.</p></div>
         </div>
       </section>
 
-      <footer className="foot">Polypals · made with blobs</footer>
+      <footer className="foot">Blobmates · made with blobs</footer>
     </>
   );
 }

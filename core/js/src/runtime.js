@@ -1,5 +1,5 @@
 // Browser runtime: makes an avatar alive. Mood-driven motion, blinking, gaze, and optional roaming inside a host element.
-//   const rt = animate(host, polypal, { seed: "alain00", mood: "happy", roam: { speed: 70 } });
+//   const rt = animate(host, blobmate, { seed: "alain00", mood: "happy", roam: { speed: 70 } });
 //   rt.set({ mood: "angry" });  rt.lookAt(x, y);  rt.poke();  rt.destroy();
 // react: true makes it respond to a tap, touch or Enter/Space: a quick jump and a short-lived surprised, joyful or happy face.
 // All numbers come from parts.moods[mood].motion, so other platforms can animate from the same data.
@@ -8,8 +8,8 @@ const TAU = Math.PI * 2;
 const rnd = (a, b) => a + Math.random() * (b - a);
 const EASED = ['base', 'bob', 'bobHz', 'squash', 'sway', 'swayHz', 'shake', 'shakeHz', 'roam'];
 
-export function animate(host, polypal, o = {}) {
-  const P = polypal.parts;
+export function animate(host, blobmate, o = {}) {
+  const P = blobmate.parts;
   const s = { seed: 'x', pins: {}, mood: 'neutral', motion: 'follow', roam: null, size: 120, ...o };
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -24,7 +24,7 @@ export function animate(host, polypal, o = {}) {
     if (key === lastKey) return;
     lastKey = key;
     el.style.width = el.style.height = s.size + 'px';
-    el.innerHTML = polypal(s.seed, { ...s.pins, mood: curMood, gaze, blink, overlayFrame: ovFrame, size: s.size });
+    el.innerHTML = blobmate(s.seed, { ...s.pins, mood: curMood, gaze, blink, overlayFrame: ovFrame, size: s.size });
   };
 
   const onMove = (e) => { pointer = [e.clientX, e.clientY]; };

@@ -1,8 +1,8 @@
-# Polypals
+# Blobmates
 
 Friendly blob avatars that feel alive. Give it any string (a username, an email, a bot name) and it always draws the same character: shape, color, eyes, mouth and sometimes an accessory. Then you can make it blink, follow the pointer, wander around and react to taps.
 
-- **Deterministic.** The same string gives the same Polypal everywhere.
+- **Deterministic.** The same string gives the same Blobmate everywhere.
 - **Editable.** Pin any single thing (shape, color, eyes, mouth, glasses, a bow) and let the name decide the rest.
 - **Expressive.** 18 moods, each with its own face and its own motion. `thinking` shows a thought bubble, `sleeping` shows snoring z's.
 - **Alive (optional).** Blinking, eyes that follow the pointer, roaming around a box, and a reaction when tapped.
@@ -26,34 +26,34 @@ The site uses hash routes (`#/editor`, `#/docs`), so it works on any static host
 Install it from npm:
 
 ```bash
-npm install @dhriyama/polypals
+npm install blobmates
 ```
 
 ```js
-import { polypal } from "@dhriyama/polypals";
+import { blobmate } from "blobmates";
 
 // Static: returns an SVG string
-const svg = polypal("sagar", { mood: "happy", size: 96 });
+const svg = blobmate("sagar", { mood: "happy", size: 96 });
 
 // Pin anything you want, the name decides the rest
-polypal("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round" });
+blobmate("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round" });
 ```
 
 React components:
 
 ```jsx
-import { Polypal, LivePolypal } from "@dhriyama/polypals/react";
+import { Blobmate, LiveBlobmate } from "blobmates/react";
 
-<Polypal seed="sagar" size={64} shape="circle" />
-<LivePolypal seed="sagar" mood="happy" react />
+<Blobmate seed="sagar" size={64} shape="circle" />
+<LiveBlobmate seed="sagar" mood="happy" react />
 ```
 
 Live avatars (browser only):
 
 ```js
-import { animate } from "@dhriyama/polypals/runtime";
+import { animate } from "blobmates/runtime";
 
-const rt = animate(document.querySelector("#box"), polypal, {
+const rt = animate(document.querySelector("#box"), blobmate, {
   seed: "sagar",
   mood: "happy",
   motion: "follow",      // "none" | "follow" | "idle"
@@ -94,7 +94,7 @@ DESIGN.md               how the site and the avatars should look and move
 ## Status and limits
 
 - Web only. Kotlin and Swift ports are planned (they would read the same `parts.json`), but they do not exist yet.
-- Published to npm as [`@dhriyama/polypals`](https://www.npmjs.com/package/@dhriyama/polypals) (source in `core/js`), with React components and TypeScript types.
+- Published to npm as [`blobmates`](https://www.npmjs.com/package/blobmates) (source in `core/js`), with React components and TypeScript types.
 - Unit tests cover the JavaScript library only. There are no stored seed outputs to check other platforms against yet.
 - Live avatars redraw their SVG as they move. They are fine for a handful on a page, not for hundreds.
 - A static SVG cannot react or animate on its own. Live behavior needs the runtime.

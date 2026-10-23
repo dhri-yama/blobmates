@@ -1,6 +1,6 @@
 # DESIGN.md
 
-How Polypals looks and behaves. The website follows a calm, warm style in the spirit of the Headspace site (white page, one orange accent, big friendly headings, rounded cards with an orange bottom edge). The avatars are flat, colorful blobs with big expressive eyes.
+How Blobmates looks and behaves. The website follows a calm, warm style in the spirit of the Headspace site (white page, one orange accent, big friendly headings, rounded cards with an orange bottom edge). The avatars are flat, colorful blobs with big expressive eyes.
 
 ## Principles
 
@@ -42,8 +42,8 @@ System font stack (`ui-sans-serif, system-ui, ...`), no web font to load. Headin
 
 ### Layout
 
-- Navbar: 61px, sticky, white with a hairline. Logo (a live Polypal) and wordmark on the left, three links on the right (Home, Editor, Docs). Active link has a 3px orange underline.
-- Landing: full-height hero with copy on the left and polypals roaming across it behind the text. Then a mood grid and three cards.
+- Navbar: 61px, sticky, white with a hairline. Logo (a live Blobmate) and wordmark on the left, three links on the right (Home, Editor, Docs). Active link has a 3px orange underline.
+- Landing: full-height hero with copy on the left and blobmates roaming across it behind the text. Then a mood grid and three cards.
 - Editor: at 1100px and wider, three zones (avatar and controls, moods and code, shape panel). From 560px to 1100px, the avatar column and the panel sit side by side. Below 560px everything stacks.
 - Docs: sticky table of contents on the left, article up to about 680px wide.
 
@@ -119,4 +119,4 @@ Rules:
 
 ### Brand mark
 
-The logo is a live Polypal generated from the name `polypal` with nothing pinned. It should always be produced by the library, never drawn by hand, so the brand and the product stay the same thing.
+The logo is a live Blobmate generated from the name `blobmate` with nothing pinned. It should always be produced by the library, never drawn by hand, so the brand and the product stay the same thing.

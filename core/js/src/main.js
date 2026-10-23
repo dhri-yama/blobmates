@@ -1,9 +1,9 @@
-// Package entry: a ready-to-use `polypal` bound to the bundled parts, plus the factory for custom parts.
-import { makePolypal } from './index.js';
+// Package entry: a ready-to-use `blobmate` bound to the bundled parts, plus the factory for custom parts.
+import { makeBlobmate } from './index.js';
 import parts from './parts.js';
 
-export const polypal = makePolypal(parts);
-export { makePolypal, parts };
+export const blobmate = makeBlobmate(parts);
+export { makeBlobmate, parts };
 
 // Ids you can pass as options.
 export const moods = Object.keys(parts.moods);

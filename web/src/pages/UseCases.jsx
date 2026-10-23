@@ -95,7 +95,7 @@ function UploadCase() {
     <Case title="Loading and results" idea="Thinking while it works, excited when it lands, hurt when it breaks." mood={MOODS[phase]} seed="upload" look={pins('sun', '#F7C531')}>
       <div className="meter" aria-hidden="true"><i style={{ width: `${phase === 'idle' ? 0 : progress}%` }} /></div>
       <p className="status" aria-live="polite">{TEXT[phase]}</p>
-      <div className="row left">
+      <div className="row start">
         <button className="on" disabled={phase === 'uploading'} onClick={() => start(false)}>Upload a file</button>
         <button disabled={phase === 'uploading'} onClick={() => start(true)}>Make it fail</button>
       </div>

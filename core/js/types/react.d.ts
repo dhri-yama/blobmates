@@ -1,15 +1,15 @@
 import type { AnimateOptions } from './runtime';
-import type { AvatarOptions } from './main';
+import type { PolypalOptions } from './main';
 
 type Common = { label?: string; className?: string; style?: Record<string, unknown> };
 
-export type AvatarProps = Common & AvatarOptions & { seed: string };
+export type PolypalProps = Common & PolypalOptions & { seed: string };
 
-export type LiveAvatarProps = Common & {
+export type LivePolypalProps = Common & {
   seed: string;
   size?: number;
   mood?: string;
-  pins?: AvatarOptions;
+  pins?: PolypalOptions;
   motion?: 'none' | 'follow' | 'idle';
   /** `true` or `{ speed, pause }`. With roam the component fills its parent, so give the parent a size. */
   roam?: boolean | NonNullable<AnimateOptions['roam']>;
@@ -17,6 +17,6 @@ export type LiveAvatarProps = Common & {
 };
 
 /** Static avatar (an SVG). */
-export function Avatar(props: AvatarProps): any;
+export function Polypal(props: PolypalProps): any;
 /** Live avatar: blinks, follows the pointer, and can roam or react to taps. */
-export function LiveAvatar(props: LiveAvatarProps): any;
+export function LivePolypal(props: LivePolypalProps): any;

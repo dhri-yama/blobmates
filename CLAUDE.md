@@ -4,7 +4,7 @@ Guidance for working in this repo. For what the project is, see `README.md`. For
 
 ## What this is
 
-Polypals: deterministic blob avatars. `avatar(seed, options)` returns an SVG string; `animate(host, avatar, options)` makes one alive in the browser. A React site in `web/` (landing, editor, docs) shows it off.
+Polypals: deterministic blob avatars. `polypal(seed, options)` returns an SVG string; `animate(host, polypal, options)` makes one alive in the browser. A React site in `web/` (landing, editor, docs) shows it off.
 
 ## Commands
 
@@ -32,7 +32,7 @@ There are no automated tests yet. Verify changes by rebuilding and looking at th
 
 - **Seed draw order is a contract.** In `resolve()` (`index.js`) every random draw happens in a fixed order, even for unused values. Add new draws at the END, never in the middle, or every existing avatar changes. Adding or removing bodies, mouths or accessories also changes what some seeds pick, so treat a released parts set as a version.
 - **Integer math only in seed logic** (`Math.imul`, `>>>`, `%` on integers). No floats or locale-dependent formatting in anything that decides a choice, because Kotlin and Swift ports must match exactly.
-- **Placeholders in art fragments:** `{{body}}` (fur color), `{{acc}}` (accessory color), `{{shade}}` (darker body color), `{{lid}}` (eyelid color). They are replaced once at the end of `avatar()`.
+- **Placeholders in art fragments:** `{{body}}` (fur color), `{{acc}}` (accessory color), `{{shade}}` (darker body color), `{{lid}}` (eyelid color). They are replaced once at the end of `polypal()`.
 - **Coordinate system:** everything is drawn on a 100x100 viewBox. The face has its own frame: eyes at y=46, x=36 and x=64, mouth around y=66 to 75. Bodies position the face with `fx`, `fy`, `fs`. Bodies can have a `back` layer (behind the body) and `front` layer (over the body, under the face). The whole avatar is scaled to 0.88 inside the viewBox so shapes fit a circular crop.
 - **Anatomy hooks:** parts carry `data-part="..."` (`eyes`, `pupil-l`, `pupil-r`, `mouth`, `overlay`, ...). The runtime relies on them. Do not remove or rename them.
 - **Motion is data.** Per-mood motion numbers (bounce, tilt, tremble, roam speed, blink interval) live under `moods.<name>.motion` in `parts.json`. Change the numbers in `build-parts.mjs`, not the runtime. Mood overlays (thought bubble, snoring) are frame lists in `overlays`.

@@ -1,9 +1,9 @@
-// Package entry: a ready-to-use `avatar` bound to the bundled parts, plus the factory for custom parts.
-import { makeAvatar } from './index.js';
+// Package entry: a ready-to-use `polypal` bound to the bundled parts, plus the factory for custom parts.
+import { makePolypal } from './index.js';
 import parts from './parts.js';
 
-export const avatar = makeAvatar(parts);
-export { makeAvatar, parts };
+export const polypal = makePolypal(parts);
+export { makePolypal, parts };
 
 // Ids you can pass as options.
 export const moods = Object.keys(parts.moods);

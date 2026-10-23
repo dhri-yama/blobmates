@@ -26,16 +26,16 @@ The site uses hash routes (`#/editor`, `#/docs`), so it works on any static host
 Polypals is not published to npm yet. Until it is, copy `core/js/src/` and `core/assets/parts.json` into your project and import them by path.
 
 ```js
-import { makeAvatar } from "./polypals/index.js";
+import { makePolypal } from "./polypals/index.js";
 import parts from "./polypals/parts.json";
 
-const avatar = makeAvatar(parts);
+const polypal = makePolypal(parts);
 
 // Static: returns an SVG string
-const svg = avatar("sagar", { mood: "happy", size: 96 });
+const svg = polypal("sagar", { mood: "happy", size: 96 });
 
 // Pin anything you want, the name decides the rest
-avatar("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round" });
+polypal("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round" });
 ```
 
 Live avatars (browser only):
@@ -43,7 +43,7 @@ Live avatars (browser only):
 ```js
 import { animate } from "./polypals/runtime.js";
 
-const rt = animate(document.querySelector("#box"), avatar, {
+const rt = animate(document.querySelector("#box"), polypal, {
   seed: "sagar",
   mood: "happy",
   motion: "follow",      // "none" | "follow" | "idle"

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Avatar } from '../components.jsx';
-import { P } from '../avatar.js';
+import { Polypal } from '../components.jsx';
+import { P } from '../polypal.js';
 import { FRAMEWORKS, TESTED, snippet } from '../snippets.js';
 
 const SECTIONS = [
@@ -32,7 +32,7 @@ export default function Docs() {
         <p id="overview">Polypals turns a string (a username, an email, anything) into a friendly blob avatar. The same string always gives the same avatar, on every device. You can then change any part of it, and make it move.</p>
 
         <div className="try">
-          <Avatar seed={seed} mood={mood} size={96} />
+          <Polypal seed={seed} mood={mood} size={96} />
           <div>
             <input type="text" value={seed} onChange={(e) => setSeed(e.target.value || 'x')} spellCheck={false} />
             <div className="chips">
@@ -45,23 +45,23 @@ export default function Docs() {
 
         <h2 id="install">Install</h2>
         <div className="note">Polypals is not published to npm yet. Until it is, copy <code>core/js/src/</code> and <code>core/assets/parts.json</code> from the repository into your project and import them by path. The examples below use those files.</div>
-        <Code>{`import { makeAvatar } from "./polypals/index.js";
+        <Code>{`import { makePolypal } from "./polypals/index.js";
 import { animate } from "./polypals/runtime.js"; // only for live avatars
 import parts from "./polypals/parts.json";
 
-const avatar = makeAvatar(parts);`}</Code>
+const polypal = makePolypal(parts);`}</Code>
 
         <h2 id="static">Static avatars</h2>
-        <p><code>avatar(seed, options)</code> returns an SVG string. There is no animation and nothing runs in the browser afterwards, so it suits profile pictures, lists, emails and server rendering.</p>
-        <Code>{`const svg = avatar("sagar", { mood: "happy", size: 96, shape: "circle" });
+        <p><code>polypal(seed, options)</code> returns an SVG string. There is no animation and nothing runs in the browser afterwards, so it suits profile pictures, lists, emails and server rendering.</p>
+        <Code>{`const svg = polypal("sagar", { mood: "happy", size: 96, shape: "circle" });
 
 // in React
 <span dangerouslySetInnerHTML={{ __html: svg }} />`}</Code>
         <p>A different <code>mood</code> is a different picture. To change expression, swap the image.</p>
 
         <h2 id="live">Live avatars</h2>
-        <p><code>animate(host, avatar, options)</code> draws an avatar inside an element and keeps it alive: it blinks, its eyes follow the pointer, and it moves according to its mood. Browser only.</p>
-        <Code>{`const rt = animate(document.querySelector("#box"), avatar, {
+        <p><code>animate(host, polypal, options)</code> draws an avatar inside an element and keeps it alive: it blinks, its eyes follow the pointer, and it moves according to its mood. Browser only.</p>
+        <Code>{`const rt = animate(document.querySelector("#box"), polypal, {
   seed: "sagar",
   mood: "happy",
   size: 120,
@@ -126,7 +126,7 @@ rt.destroy();`}</Code>
             <tr><td><code>size</code></td><td>pixels, default 128</td></tr>
           </tbody>
         </table>
-        <p><code>avatar.resolve(seed, options)</code> returns what the seed chose, which is handy for showing the current value of anything you have not pinned.</p>
+        <p><code>polypal.resolve(seed, options)</code> returns what the seed chose, which is handy for showing the current value of anything you have not pinned.</p>
 
         <h2 id="moods">Moods</h2>
         <Chips items={Object.keys(P.moods)} />

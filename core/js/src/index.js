@@ -1,4 +1,4 @@
-// avatar(seed, opts) -> SVG string. The seed picks every axis by default; any axis in opts is "pinned" and wins.
+// polypal(seed, opts) -> SVG string. The seed picks every axis by default; any axis in opts is "pinned" and wins.
 // mood/gaze/blink are runtime state, never seeded. Integer-only seed math so Kotlin/Swift ports can match bit for bit.
 //
 // Pins: style, body, color (hex or palette id), variant (eye variant #), eyeSize, faceY, mouth, brow,
@@ -25,7 +25,7 @@ const shade = (hex) => {
 };
 const SLOTS = ['top', 'eyes', 'face', 'cheeks'];
 
-export function makeAvatar(P) {
+export function makePolypal(P) {
   const weighted = (next, items) => {
     const total = items.reduce((s, [, w]) => s + w, 0);
     let r = next() % total;
@@ -78,7 +78,7 @@ export function makeAvatar(P) {
     return P.eyes.blob.open[0];
   };
 
-  function avatar(seed, o = {}) {
+  function polypal(seed, o = {}) {
     const id = resolve(seed, o);
     const mood = P.moods[o.mood] || P.moods.neutral;
     const st = P.styles[id.style];
@@ -127,7 +127,7 @@ export function makeAvatar(P) {
       .replaceAll('{{lid}}', id.body.lid || id.color);
   }
 
-  avatar.resolve = resolve;
-  avatar.parts = P;
-  return avatar;
+  polypal.resolve = resolve;
+  polypal.parts = P;
+  return polypal;
 }

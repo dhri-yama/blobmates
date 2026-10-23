@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { Avatar, LiveAvatar, RoamField } from '../components.jsx';
-import { P } from '../avatar.js';
+import { Polypal, LivePolypal, RoamField } from '../components.jsx';
+import { P } from '../polypal.js';
 
 // Curated cast for the hero: explicit body + color so the page always looks good, whatever the seed hashes to.
 const CAST = [
@@ -45,7 +45,7 @@ export default function Landing() {
           {MOODS.map((m, i) => (
             <div key={m}>
               <div className="tile">
-                <LiveAvatar seed={`mood-${i}`} size={104} mood={m} pins={{ body: BODIES[i % BODIES.length], color: P.palettes[(i * 5) % P.palettes.length].color, top: 'none', eyes: 'none', face: 'none', cheeks: 'none' }} />
+                <LivePolypal seed={`mood-${i}`} size={104} mood={m} pins={{ body: BODIES[i % BODIES.length], color: P.palettes[(i * 5) % P.palettes.length].color, top: 'none', eyes: 'none', face: 'none', cheeks: 'none' }} />
               </div>
               <div className="tile-label">{m}</div>
             </div>
@@ -57,9 +57,9 @@ export default function Landing() {
         <h2>Made to be tuned or left alone</h2>
         <p className="lead">Use the name and be done, or pin any single thing: shape, color, eyes, mouth, glasses, a bow.</p>
         <div className="cards">
-          <div className="card"><div className="tile"><Avatar seed="static" pins={{}} /></div><h3>Static</h3><p>One SVG string. Use it for profile pictures, lists and emails.</p></div>
-          <div className="card"><div className="tile"><Avatar seed="static" body="dino-tricera" color="#2FA35A" mood="joyful" /></div><h3>Live</h3><p>Blinks, follows the pointer and can roam around a box you give it.</p></div>
-          <div className="card"><div className="tile"><Avatar seed="static" body="togepi" color="#F7F1E3" eyes="glasses-round" face="handlebar" /></div><h3>Customizable</h3><p>{P.bodies.length} shapes, optional accessories, all editable in the editor.</p></div>
+          <div className="card"><div className="tile"><Polypal seed="static" pins={{}} /></div><h3>Static</h3><p>One SVG string. Use it for profile pictures, lists and emails.</p></div>
+          <div className="card"><div className="tile"><Polypal seed="static" body="dino-tricera" color="#2FA35A" mood="joyful" /></div><h3>Live</h3><p>Blinks, follows the pointer and can roam around a box you give it.</p></div>
+          <div className="card"><div className="tile"><Polypal seed="static" body="togepi" color="#F7F1E3" eyes="glasses-round" face="handlebar" /></div><h3>Customizable</h3><p>{P.bodies.length} shapes, optional accessories, all editable in the editor.</p></div>
         </div>
       </section>
 

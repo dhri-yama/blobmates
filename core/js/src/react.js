@@ -1,27 +1,27 @@
 // React components. Written with createElement so the package needs no build step.
 import { createElement as h, useEffect, useRef } from 'react';
-import { avatar } from './main.js';
+import { polypal } from './main.js';
 import { animate } from './runtime.js';
 
 // Static avatar: one SVG, no JavaScript running afterwards. Fine in lists and server rendering.
-export function Avatar({ seed, size = 96, label, className, style, ...options }) {
+export function Polypal({ seed, size = 96, label, className, style, ...options }) {
   return h('span', {
     className,
     role: 'img',
     'aria-label': label ?? `${seed} avatar`,
     style: { display: 'inline-block', width: size, height: size, lineHeight: 0, ...style },
-    dangerouslySetInnerHTML: { __html: avatar(seed, { ...options, size }) },
+    dangerouslySetInnerHTML: { __html: polypal(seed, { ...options, size }) },
   });
 }
 
 // Live avatar: blinks, follows the pointer, moves with its mood, and can roam or react to taps.
 // Without `roam` it is size x size. With `roam` it fills its parent, so give the parent a size.
-export function LiveAvatar({ seed, size = 120, mood = 'neutral', pins, motion = 'follow', roam, react, label, className, style }) {
+export function LivePolypal({ seed, size = 120, mood = 'neutral', pins, motion = 'follow', roam, react, label, className, style }) {
   const host = useRef(null);
   const rt = useRef(null);
 
   useEffect(() => {
-    rt.current = animate(host.current, avatar, { seed, size });
+    rt.current = animate(host.current, polypal, { seed, size });
     return () => rt.current.destroy();
   }, []);
 

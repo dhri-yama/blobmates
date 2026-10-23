@@ -20,39 +20,39 @@ npm install polypals
 Returns an SVG string. Use it for profile pictures, lists, emails and server rendering.
 
 ```js
-import { avatar } from "polypals";
+import { polypal } from "polypals";
 
-const svg = avatar("sagar", { mood: "happy", size: 96 });
+const svg = polypal("sagar", { mood: "happy", size: 96 });
 element.innerHTML = svg;
 
 // Pin anything, the name decides the rest
-avatar("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round", shape: "circle" });
+polypal("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round", shape: "circle" });
 ```
 
 ## React
 
 ```jsx
-import { Avatar, LiveAvatar } from "polypals/react";
+import { Polypal, LivePolypal } from "polypals/react";
 
-<Avatar seed="sagar" size={64} shape="circle" />
+<Polypal seed="sagar" size={64} shape="circle" />
 
-<LiveAvatar seed="sagar" mood="happy" size={120} react />
+<LivePolypal seed="sagar" mood="happy" size={120} react />
 
 // wanders around inside its parent, which needs a size
 <div style={{ height: 320, position: "relative" }}>
-  <LiveAvatar seed="sagar" mood="excited" roam />
+  <LivePolypal seed="sagar" mood="excited" roam />
 </div>
 ```
 
-`LiveAvatar` runs in the browser only. In Next.js, put it in a client component (`"use client"`). `Avatar` works on the server.
+`LivePolypal` runs in the browser only. In Next.js, put it in a client component (`"use client"`). `Polypal` works on the server.
 
 ## Live avatar without React
 
 ```js
-import { avatar } from "polypals";
+import { polypal } from "polypals";
 import { animate } from "polypals/runtime";
 
-const rt = animate(document.querySelector("#box"), avatar, {
+const rt = animate(document.querySelector("#box"), polypal, {
   seed: "sagar",
   mood: "happy",
   motion: "follow",        // "none" | "follow" | "idle"
@@ -83,7 +83,7 @@ By default the name decides everything. Any option you pass is pinned.
 
 ```js
 import { moods, bodies, accessories } from "polypals";
-avatar.resolve("sagar");   // what the name chose, without drawing
+polypal.resolve("sagar");   // what the name chose, without drawing
 ```
 
 Accessories are optional: the name adds one only some of the time, and `"none"` always turns a slot off.
@@ -91,7 +91,7 @@ Accessories are optional: the name adds one only some of the time, and `"none"` 
 ## Notes
 
 - Adding or removing shapes in a new release can change which shape some names pick. Pin `body` if you need an avatar to stay exactly the same across upgrades.
-- A static SVG cannot animate or react on its own. Use `LiveAvatar` or `animate` for that.
+- A static SVG cannot animate or react on its own. Use `LivePolypal` or `animate` for that.
 - Live avatars redraw their SVG as they move. They are fine for a handful on a page, not for hundreds.
 - With the system's reduced-motion setting on, movement and blinking stop.
 - The `togepi` shape is an egg inspired by a Pokémon. Togepi is a Nintendo / The Pokémon Company character, so think before using it in anything commercial.

@@ -4,6 +4,7 @@ import { Footer, Logo, RoamField } from './components.jsx';
 import Landing from './pages/Landing.jsx';
 import Editor from './pages/Editor.jsx';
 import Docs from './pages/Docs.jsx';
+import UseCases from './pages/UseCases.jsx';
 
 // Small blobmates that wander along the navbar (none on phones, where the bar is too tight). Defined once so the roaming never restarts on route changes.
 const NO_ACC = { top: 'none', eyes: 'none', face: 'none', cheeks: 'none' };
@@ -16,8 +17,8 @@ const NAV_CAST = [
   ['kiwi', 'bean', '#4FB39F', 'happy', 32, 60],
 ].slice(0, innerWidth < 640 ? 0 : innerWidth < 700 ? 3 : 6).map(([seed, body, color, mood, size, speed]) => ({ seed, mood, size, speed, react: true, pins: { body, color, ...NO_ACC } }));
 
-const LINKS = [['/', 'Home'], ['/editor', 'Editor'], ['/docs', 'Docs']];
-const PAGES = { '/': Landing, '/editor': Editor, '/docs': Docs };
+const LINKS = [['/', 'Home'], ['/use-cases', 'Use cases'], ['/editor', 'Editor'], ['/docs', 'Docs']];
+const PAGES = { '/': Landing, '/use-cases': UseCases, '/editor': Editor, '/docs': Docs };
 
 export default function App() {
   const route = useRoute();

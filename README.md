@@ -10,7 +10,7 @@ Friendly blob avatars that feel alive. Give it any string (a username, an email,
 
 **Live site:** https://blobmates.dhrijethi.workers.dev
 
-The site (landing page, editor and docs) is built with React and lives in `web/`.
+The site (landing page, use cases, editor and docs) is built with React and lives in `web/`.
 
 ## Try it
 
@@ -88,7 +88,7 @@ core/                   everything shared, and every language implementation
   tools/                build-parts.mjs (generator), serve.mjs (local static server)
   js/src/               core (index.js) and browser runtime (runtime.js)
                         later: spec/, kotlin/, swift/ will sit here too
-web/                    React site: landing page, editor, docs
+web/                    React site: landing page, use cases, editor, docs
 CLAUDE.md               notes for working in this repo (rules that are easy to break)
 DESIGN.md               how the site and the avatars should look and move
 ```

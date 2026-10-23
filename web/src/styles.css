@@ -161,3 +161,36 @@ button.icon:hover{color:var(--orange-d);border-color:var(--orange)}
   .controls .seg button{flex:1;text-align:center}
 }
 .hint code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;background:#f6f4f1;border-radius:5px;padding:1px 5px;color:#3b3935}
+
+/* ---------- use cases page ---------- */
+.band.intro{padding-bottom:0}
+.band.intro h1{font-size:clamp(34px,5vw,48px);font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
+.band.tight{padding-top:44px;padding-bottom:44px}
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
+.case{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.case.wide{grid-column:1/-1}
+.case h3{font-size:17px;margin-top:6px}
+.case p{margin:0}
+.tile.demo{height:190px}
+.field-label{font-size:12px;font-weight:600;color:var(--head);margin:4px 0 0}
+.case input[type=text]{width:100%}
+.meter{height:8px;border-radius:4px;background:#efece7;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--orange);transition:width .15s}
+.status{font-weight:600;color:var(--head)}
+.fine{font-size:12px;color:var(--mute)}
+.row.left{justify-content:flex-start}
+.range{width:100%;accent-color:var(--orange)}
+.bubble{background:var(--tint);border:1px solid var(--line);border-radius:14px;padding:10px 14px;color:var(--head)}
+.chips-pick{display:flex;flex-wrap:wrap;gap:6px}
+button:disabled{opacity:.5;cursor:default}
+.profiles{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:24px;align-items:center;margin-top:6px}
+@media(max-width:640px){.profiles{grid-template-columns:1fr}}
+.me{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.team{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:14px}
+.team li{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:var(--head)}
+.moments{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px}
+.moment h3{font-size:15px;margin:8px 2px 2px}
+.moment p{margin:0 2px;font-size:13px}
+.ideas{padding-left:20px;max-width:680px}
+.ideas li{margin:8px 0}
+.cta-line{margin-top:24px}

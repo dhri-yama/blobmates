@@ -39,7 +39,7 @@ export default function Landing() {
       </section>
 
       <section className="band">
-        <h2>Sixteen moods, each with its own motion</h2>
+        <h2>{MOODS.length} moods, each with its own motion</h2>
         <p className="lead">Joyful bounces, angry trembles, sleepy sways, sad slumps. Move your mouse around: their eyes follow.</p>
         <div className="moods">
           {MOODS.map((m, i) => (

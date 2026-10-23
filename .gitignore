@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+
+# local tool state (machine-specific paths and caches)
+.claude/
+.impeccable/

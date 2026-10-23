@@ -1,0 +1,154 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Avatar editor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{--bg:#f7f3ea;--card:#fff;--ink:#1d1d1f;--mute:#8a857a;--line:#e4ddcc;--on:#1d1d1f}
+  *{box-sizing:border-box}
+  body{margin:0;font:14px system-ui;background:var(--bg);color:var(--ink);display:grid;grid-template-columns:minmax(320px,1fr) minmax(360px,460px);height:100vh}
+  @media(max-width:760px){body{grid-template-columns:1fr;height:auto}.panel{height:70vh}}
+  .left{padding:28px;display:flex;flex-direction:column;align-items:center;gap:16px;overflow:auto}
+  .panel{background:var(--card);border-left:1px solid var(--line);overflow:auto;padding:0 20px 40px}
+  h1{font-size:20px;margin:0}
+  input[type=text]{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;width:200px;text-align:center}
+  button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;cursor:pointer;color:var(--ink)}
+  button.on{background:var(--on);color:#fff;border-color:var(--on)}
+  .row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;align-items:center}
+  #stage{width:100%;max-width:520px;height:340px;border-radius:16px;border:1px dashed transparent;overflow:hidden}
+  #stage.roam{border-color:var(--line);background:#fbf8f0}
+  #stage svg{display:block;width:100%;height:auto}
+
+  pre{margin:0;width:100%;max-width:520px;background:#1d1d1f;color:#e9e4d6;padding:14px;border-radius:12px;font-size:12px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+  .sec{padding-top:20px}
+  .sec h3{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 10px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:6px}
+  .sec h3 b{font-weight:600;color:var(--ink)}
+  .sec h3 a{font-size:12px;text-transform:none;letter-spacing:0;color:var(--ink);cursor:pointer;text-decoration:underline}
+  .sec h3 a.off{color:var(--mute);text-decoration:none;cursor:default}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+  .cell{border:1px solid transparent;border-radius:10px;background:none;padding:4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--mute);cursor:pointer}
+  .cell:hover{background:#faf7ef}
+  .cell.sel{border-color:var(--on);background:#faf7ef;color:var(--ink)}
+  .cell svg{width:52px;height:52px}
+  .cell .tx{height:52px;display:grid;place-items:center;font-size:12px}
+  .sw{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .sw i{width:24px;height:24px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}
+  .sw i.sel{box-shadow:0 0 0 2px var(--on)}
+  .sw span{font-size:12px;padding:3px 10px;border:1px solid var(--line);border-radius:999px;cursor:pointer}
+  .sw span.sel{background:var(--on);color:#fff}
+  label.sl{display:grid;grid-template-columns:90px 1fr 44px;align-items:center;gap:8px;margin:6px 0;font-size:13px}
+  label.sl output{color:var(--mute);text-align:right;font-variant-numeric:tabular-nums}
+  .sub{font-size:12px;color:var(--mute);margin:12px 0 6px}
+</style>
+<div class="left">
+  <h1>Avatar editor</h1>
+  <div class="row"><input id="name" type="text" value="alain00" spellcheck="false"><button id="shuffle">shuffle</button></div>
+  <div id="stage"></div>
+  <div class="row" id="moods"></div>
+  <div class="row">motion <span id="motion"></span></div>
+  <div class="row">roam <span id="roam"></span></div>
+  <div class="row"><button id="copy">copy svg</button><button id="dl">download svg</button></div>
+  <pre id="code"></pre>
+</div>
+<div class="panel" id="panel"></div>
+<script type="module">
+import { makeAvatar } from '../packages/js/src/index.js';
+import { animate } from '../packages/js/src/runtime.js';
+const P = await (await fetch('../assets/parts.json')).json();
+const avatar = makeAvatar(P);
+const $ = (id) => document.getElementById(id);
+const html = String.raw;
+
+const state = { name: 'alain00', pins: {}, mood: 'neutral', motion: 'follow', roam: false };
+const opts = (extra = {}) => ({ ...state.pins, ...extra });
+const pinned = (...keys) => keys.some((k) => state.pins[k] !== undefined);
+const setPin = (k, v) => { v === undefined ? delete state.pins[k] : (state.pins[k] = v); changed(); };
+const unpin = (...keys) => { keys.forEach((k) => delete state.pins[k]); changed(); };
+const auto = () => avatar.resolve(state.name, state.pins);
+
+// ---------- panel ----------
+const section = (title, keys, body, hint = '') =>
+  html`<div class="sec"><h3><span><b>${title}</b> ${hint}</span><a data-unpin="${keys.join(',')}" class="${pinned(...keys) ? '' : 'off'}">${pinned(...keys) ? 'unpin' : 'auto'}</a></h3>${body}</div>`;
+const cell = (key, val, svgOrText, label, selected) =>
+  html`<button class="cell ${selected ? 'sel' : ''}" data-pin="${key}" data-val="${val ?? ''}">${svgOrText.startsWith('<svg') ? svgOrText : `<span class="tx">${svgOrText}</span>`}${label}</button>`;
+const thumb = (extra) => avatar(state.name, opts({ size: 52, ...extra }));
+const swatches = (key, list) => html`<div class="sw">
+  <span class="${state.pins[key] === undefined ? 'sel' : ''}" data-pin="${key}" data-val="">auto</span>
+  ${list.map((c) => `<i class="${state.pins[key]?.toLowerCase?.() === c.toLowerCase() ? 'sel' : ''}" style="background:${c}" data-pin="${key}" data-val="${c}"></i>`).join('')}
+  <input type="color" data-color="${key}" value="${(state.pins[key] || '#888888').slice(0, 7)}" title="custom"></div>`;
+const slider = (key, label, min, max, step, def) =>
+  html`<label class="sl">${label}<input type="range" data-slide="${key}" min="${min}" max="${max}" step="${step}" value="${state.pins[key] ?? def}"><output>${(state.pins[key] ?? def)}</output></label>`;
+
+function renderPanel() {
+  const a = auto();
+  const accSlot = (slot, title) => {
+    const list = P.accessories[slot], cur = state.pins[slot];
+    return section(title, [slot],
+      `<div class="grid">${cell(slot, '', '↺', 'auto', cur === undefined)}${cell(slot, 'none', '∅', 'none', cur === 'none')}` +
+      list.map((x) => cell(slot, x.id, thumb({ [slot]: x.id }), x.id, cur === x.id)).join('') + '</div>',
+      cur === undefined ? `<small>→ ${a.acc[slot]?.id || 'none'}</small>` : '');
+  };
+  $('panel').innerHTML =
+    section('Shape', ['body', 'style'],
+      `<div class="grid">${cell('body', '', '↺', 'auto', state.pins.body === undefined)}` +
+      P.bodies.map((b) => cell('body', b.id, thumb({ body: b.id, style: b.block ? 'block-eyes' : state.pins.style }), b.id, state.pins.body === b.id)).join('') + '</div>' +
+      `<div class="sub">style</div><div class="sw"><span class="${state.pins.style === undefined ? 'sel' : ''}" data-pin="style" data-val="">auto</span>` +
+      Object.keys(P.styles).map((s) => `<span class="${state.pins.style === s ? 'sel' : ''}" data-pin="style" data-val="${s}">${s}</span>`).join('') + '</div>',
+      state.pins.body === undefined ? `<small>→ ${a.body.id}</small>` : '') +
+    section('Color', ['color'], swatches('color', P.palettes.map((p) => p.color))) +
+    section('Eyes', ['variant', 'eyeSize'],
+      `<div class="sw"><span class="${state.pins.variant === undefined ? 'sel' : ''}" data-pin="variant" data-val="">auto</span>` +
+      [0, 1, 2, 3, 4].map((v) => `<span class="${state.pins.variant === v ? 'sel' : ''}" data-pin="variant" data-val="${v}">type ${v + 1}</span>`).join('') + '</div>' +
+      slider('eyeSize', 'size', 0.7, 1.4, 0.05, a.eyeScale) + slider('faceY', 'face height', -10, 10, 1, 0)) +
+    section('Mouth', ['mouth'],
+      `<div class="grid">${cell('mouth', '', '↺', 'auto', state.pins.mouth === undefined)}` +
+      Object.keys(P.mouths).filter((m) => m !== 'none').map((m) => cell('mouth', m, thumb({ mouth: m }), m, state.pins.mouth === m)).join('') + '</div>') +
+    section('Brows', ['brow'],
+      `<div class="sw"><span class="${state.pins.brow === undefined ? 'sel' : ''}" data-pin="brow" data-val="">auto</span>` +
+      Object.keys(P.brows).map((m) => `<span class="${state.pins.brow === m ? 'sel' : ''}" data-pin="brow" data-val="${m}">${m}</span>`).join('') + '</div>') +
+    accSlot('top', 'Hair & hats') + accSlot('eyes', 'Glasses') + accSlot('face', 'Moustache & beard') + accSlot('cheeks', 'Cheeks') +
+    section('Accessory color', ['accColor'], swatches('accColor', P.accColors));
+  $('panel').querySelectorAll('[data-slide]').forEach((el) => { el.style.opacity = pinned(el.dataset.slide) ? 1 : 0.65; });
+}
+
+// ---------- hero / code ----------
+const rt = animate($('stage'), avatar, { seed: state.name, size: 220 });
+function renderHero() { rt.set({ seed: state.name, pins: state.pins, mood: state.mood, motion: state.motion, roam: state.roam ? { speed: 70 } : null }); }
+function renderCode() {
+  const pins = JSON.stringify(state.pins, null, 2).replace(/\n\s*/g, ' ');
+  $('code').textContent = `import { makeAvatar } from "avator";\nconst avatar = makeAvatar(parts);\n\navatar(${JSON.stringify(state.name)}, ${Object.keys(state.pins).length ? pins : '{}'});\n// ${Object.keys(state.pins).length ? Object.keys(state.pins).length + ' axes pinned, rest from the name' : 'nothing pinned: the name decides everything'}`;
+}
+function changed(panel = true) { if (panel) renderPanel(); renderHero(); renderCode(); }
+
+// ---------- events ----------
+$('panel').addEventListener('click', (e) => {
+  const un = e.target.closest('[data-unpin]');
+  if (un) return unpin(...un.dataset.unpin.split(','));
+  const el = e.target.closest('[data-pin]');
+  if (!el) return;
+  const raw = el.dataset.val, k = el.dataset.pin;
+  setPin(k, raw === '' ? undefined : k === 'variant' ? +raw : raw);
+});
+$('panel').addEventListener('input', (e) => {
+  if (e.target.dataset.slide) { const v = +e.target.value; state.pins[e.target.dataset.slide] = v; e.target.nextElementSibling.textContent = v; e.target.style.opacity = 1; renderHero(); renderCode(); }
+  if (e.target.dataset.color) { state.pins[e.target.dataset.color] = e.target.value; renderHero(); renderCode(); }
+});
+$('panel').addEventListener('change', (e) => { if (e.target.dataset.slide || e.target.dataset.color) renderPanel(); });
+$('name').addEventListener('input', (e) => { state.name = e.target.value || 'x'; changed(); });
+$('shuffle').onclick = () => { state.name = Math.random().toString(36).slice(2, 8); $('name').value = state.name; changed(); };
+$('moods').innerHTML = Object.keys(P.moods).map((m) => `<button data-mood="${m}">${m}</button>`).join('');
+$('moods').onclick = (e) => { if (e.target.dataset.mood) { state.mood = e.target.dataset.mood; markBtns(); renderHero(); } };
+$('motion').innerHTML = ['none', 'follow', 'idle'].map((m) => `<button data-motion="${m}">${m}</button>`).join('');
+$('motion').onclick = (e) => { if (e.target.dataset.motion) { state.motion = e.target.dataset.motion; markBtns(); renderHero(); } };
+$('roam').innerHTML = ['off', 'on'].map((m) => `<button data-roam="${m}">${m}</button>`).join('');
+$('roam').onclick = (e) => { if (e.target.dataset.roam) { state.roam = e.target.dataset.roam === 'on'; markBtns(); renderHero(); } };
+const markBtns = () => {
+  $('stage').classList.toggle('roam', state.roam);
+  document.querySelectorAll('[data-mood]').forEach((b) => b.classList.toggle('on', b.dataset.mood === state.mood));
+  document.querySelectorAll('[data-motion]').forEach((b) => b.classList.toggle('on', b.dataset.motion === state.motion));
+  document.querySelectorAll('[data-roam]').forEach((b) => b.classList.toggle('on', (b.dataset.roam === 'on') === state.roam));
+};
+$('copy').onclick = () => navigator.clipboard?.writeText(avatar(state.name, opts({ mood: state.mood })));
+$('dl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([avatar(state.name, opts({ mood: state.mood, size: 512 }))], { type: 'image/svg+xml' })); a.download = state.name + '.svg'; a.click(); };
+
+markBtns(); changed();
+</script>

@@ -1,4 +1,4 @@
-# polypals
+# Polypals
 
 Friendly blob avatars that feel alive. Give it any string (a username, an email, a bot name) and it always draws the same character. Pin any part you want to change, and optionally make it blink, follow the pointer, wander around and react to taps.
 
@@ -12,7 +12,7 @@ Try the editor and read the docs: https://github.com/dhri-yama/polypals
 ## Install
 
 ```bash
-npm install polypals
+npm install @dhriyama/polypals
 ```
 
 ## Static avatar
@@ -20,7 +20,7 @@ npm install polypals
 Returns an SVG string. Use it for profile pictures, lists, emails and server rendering.
 
 ```js
-import { polypal } from "polypals";
+import { polypal } from "@dhriyama/polypals";
 
 const svg = polypal("sagar", { mood: "happy", size: 96 });
 element.innerHTML = svg;
@@ -32,7 +32,7 @@ polypal("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round", shape
 ## React
 
 ```jsx
-import { Polypal, LivePolypal } from "polypals/react";
+import { Polypal, LivePolypal } from "@dhriyama/polypals/react";
 
 <Polypal seed="sagar" size={64} shape="circle" />
 
@@ -49,8 +49,8 @@ import { Polypal, LivePolypal } from "polypals/react";
 ## Live avatar without React
 
 ```js
-import { polypal } from "polypals";
-import { animate } from "polypals/runtime";
+import { polypal } from "@dhriyama/polypals";
+import { animate } from "@dhriyama/polypals/runtime";
 
 const rt = animate(document.querySelector("#box"), polypal, {
   seed: "sagar",
@@ -82,7 +82,7 @@ By default the name decides everything. Any option you pass is pinned.
 | `shape`, `bg`, `size` | `circle`, `rounded` or `square`; a background color; pixels |
 
 ```js
-import { moods, bodies, accessories } from "polypals";
+import { moods, bodies, accessories } from "@dhriyama/polypals";
 polypal.resolve("sagar");   // what the name chose, without drawing
 ```
 

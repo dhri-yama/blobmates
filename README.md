@@ -84,7 +84,7 @@ DESIGN.md               how the site and the avatars should look and move
 ## Status and limits
 
 - Web only. Kotlin and Swift ports are planned (they would read the same `parts.json`), but they do not exist yet.
-- Ready to publish to npm as `polypals` (`core/js`, with React components and types), but not published yet.
+- Ready to publish to npm as `@dhriyama/polypals` (`core/js`, with React components and types), but not published yet.
 - Unit tests cover the JavaScript library only. There are no stored seed outputs to check other platforms against yet.
 - Live avatars redraw their SVG as they move. They are fine for a handful on a page, not for hundreds.
 - A static SVG cannot react or animate on its own. Live behavior needs the runtime.

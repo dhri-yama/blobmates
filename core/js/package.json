@@ -1,5 +1,5 @@
 {
-  "name": "polypals",
+  "name": "@dhriyama/polypals",
   "version": "0.1.0",
   "description": "Friendly blob avatars that feel alive: deterministic from a name, editable, and animated.",
   "keywords": ["avatar", "avatars", "blob", "identicon", "profile-picture", "svg", "generative", "mascot", "react", "animation"],

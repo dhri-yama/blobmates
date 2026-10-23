@@ -76,7 +76,6 @@ tools/build-parts.mjs generator for parts.json
 tools/serve.mjs       tiny static server used for local previews
 packages/js/src/      core (index.js) and browser runtime (runtime.js)
 web/                  React site: landing page, editor, docs
-preview/              early plain-HTML previews
 CLAUDE.md             notes for working in this repo (rules that are easy to break)
 DESIGN.md             how the site and the avatars should look and move
 ```

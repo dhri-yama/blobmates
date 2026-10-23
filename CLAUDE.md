@@ -24,7 +24,6 @@ There are no automated tests yet. Verify changes by rebuilding and looking at th
 - `packages/js/src/index.js` is the core (seed to SVG). It must stay free of DOM and browser APIs so it can run on a server and be ported.
 - `packages/js/src/runtime.js` is browser-only (motion, blink, gaze, roam, tap reaction).
 - `web/src/` is the React app. It imports the library and `parts.json` with relative paths from outside `web/`, so build it from this repo, not from a copy of `web/`.
-- `preview/` is the old plain-HTML pages. Superseded by `web/`.
 
 ## Rules that are easy to break
 

@@ -11,7 +11,7 @@ createServer(async (req, res) => {
   const path = normalize(decodeURIComponent(new URL(req.url, 'http://x').pathname));
   if (path.includes('..')) return res.writeHead(403).end();
   try {
-    const file = join(root, path.endsWith('/') ? path + 'preview/index.html' : path);
+    const file = join(root, path.endsWith('/') ? path + 'web/dist/index.html' : path);
     const body = await readFile(file);
     res.writeHead(200, { 'content-type': types[extname(file)] || 'text/plain' }).end(body);
   } catch {

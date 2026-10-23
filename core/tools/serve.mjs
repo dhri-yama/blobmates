@@ -1,10 +1,10 @@
-// Minimal static server for the preview. Run: node tools/serve.mjs
+// Minimal static server for the preview. Run: node core/tools/serve.mjs
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { extname, join, normalize } from 'node:path';
 
-const root = fileURLToPath(new URL('..', import.meta.url));
+const root = fileURLToPath(new URL('../..', import.meta.url));
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml' };
 
 createServer(async (req, res) => {

@@ -9,21 +9,22 @@ Polypals: deterministic blob avatars. `avatar(seed, options)` returns an SVG str
 ## Commands
 
 ```bash
-node tools/build-parts.mjs     # regenerate assets/parts.json (run after ANY art or mood change)
+node core/tools/build-parts.mjs     # regenerate core/assets/parts.json (run after ANY art or mood change)
 cd web && npm install
 cd web && npm run dev          # dev server
 cd web && npm run build        # static site in web/dist
-node tools/serve.mjs           # serves the repo root on :5173 (PORT=... to change); the built site is at /web/dist/index.html
+node core/tools/serve.mjs      # serves the repo root on :5173 (PORT=... to change); the built site is at /web/dist/index.html
 ```
 
 There are no automated tests yet. Verify changes by rebuilding and looking at the page.
 
 ## Layout
 
-- `assets/parts.json` is GENERATED. Never edit it by hand. All art and mood data lives in `tools/build-parts.mjs`.
-- `packages/js/src/index.js` is the core (seed to SVG). It must stay free of DOM and browser APIs so it can run on a server and be ported.
-- `packages/js/src/runtime.js` is browser-only (motion, blink, gaze, roam, tap reaction).
-- `web/src/` is the React app. It imports the library and `parts.json` with relative paths from outside `web/`, so build it from this repo, not from a copy of `web/`.
+- The repo has two parts: `core/` (shared data, tools and the library) and `web/` (the React site). New language ports go in `core/` next to `js/`.
+- `core/assets/parts.json` is GENERATED. Never edit it by hand. All art and mood data lives in `core/tools/build-parts.mjs`.
+- `core/js/src/index.js` is the core (seed to SVG). It must stay free of DOM and browser APIs so it can run on a server and be ported.
+- `core/js/src/runtime.js` is browser-only (motion, blink, gaze, roam, tap reaction).
+- `web/src/` is the React app. It imports the library and `parts.json` from `core/` with relative paths, so build it from this repo, not from a copy of `web/`.
 
 ## Rules that are easy to break
 

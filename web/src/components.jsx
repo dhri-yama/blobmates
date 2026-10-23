@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { animate } from '../../packages/js/src/runtime.js';
+import { animate } from '../../core/js/src/runtime.js';
 import { avatar } from './avatar.js';
 
 // Static avatar: one SVG string, no JavaScript running afterwards.

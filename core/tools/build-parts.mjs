@@ -1,4 +1,4 @@
-// Generates assets/parts.json (frozen art pack). Run: node tools/build-parts.mjs
+// Generates core/assets/parts.json (frozen art pack). Run: node core/tools/build-parts.mjs
 import { writeFileSync, mkdirSync } from 'node:fs';
 
 const INK = '#111111';

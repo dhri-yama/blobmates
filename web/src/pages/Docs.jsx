@@ -44,7 +44,7 @@ export default function Docs() {
         </div>
 
         <h2 id="install">Install</h2>
-        <div className="note">Polypals is not published to npm yet. Until it is, copy <code>packages/js/src/</code> and <code>assets/parts.json</code> from the repository into your project and import them by path. The examples below use those files.</div>
+        <div className="note">Polypals is not published to npm yet. Until it is, copy <code>core/js/src/</code> and <code>core/assets/parts.json</code> from the repository into your project and import them by path. The examples below use those files.</div>
         <Code>{`import { makeAvatar } from "./polypals/index.js";
 import { animate } from "./polypals/runtime.js"; // only for live avatars
 import parts from "./polypals/parts.json";

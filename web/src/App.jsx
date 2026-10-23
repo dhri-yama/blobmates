@@ -1,5 +1,5 @@
 import { useRoute } from './router.js';
-import { Logo, RoamField } from './components.jsx';
+import { Footer, Logo, RoamField } from './components.jsx';
 import Landing from './pages/Landing.jsx';
 import Editor from './pages/Editor.jsx';
 import Docs from './pages/Docs.jsx';
@@ -33,6 +33,7 @@ export default function App() {
         </nav>
       </header>
       <Page key={route} />
+      <Footer />
     </>
   );
 }

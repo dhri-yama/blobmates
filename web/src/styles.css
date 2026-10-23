@@ -46,7 +46,9 @@ input[type=text]{font:inherit;padding:8px 14px;border:1px solid var(--line);bord
 .card .tile svg{width:130px;height:130px}
 .card h3{font-size:16px;margin:10px 2px 4px}
 .card p{margin:0 2px;font-size:14px}
-.foot{border-top:1px solid var(--line);padding:28px;text-align:center;font-size:13px;color:var(--mute)}
+.foot{border-top:1px solid var(--line);padding:28px;display:flex;flex-direction:column;align-items:center;gap:12px;font-size:13px;color:var(--mute)}
+.gh{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;color:var(--head);border:1px solid var(--line);transition:color .15s,border-color .15s}
+.gh:hover{color:var(--orange-d);border-color:var(--orange)}
 
 /* ---------- editor ---------- */
 .editor{display:grid;grid-template-columns:minmax(260px,1fr) minmax(300px,440px);height:calc(100vh - var(--nav))}

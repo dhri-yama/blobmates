@@ -75,7 +75,7 @@ core/                   everything shared, and every language implementation
   assets/parts.json     generated art and mood data
   tools/                build-parts.mjs (generator), serve.mjs (local static server)
   js/src/               core (index.js) and browser runtime (runtime.js)
-                        later: spec/, android/, swift/ will sit here too
+                        later: spec/, kotlin/, swift/ will sit here too
 web/                    React site: landing page, editor, docs
 CLAUDE.md               notes for working in this repo (rules that are easy to break)
 DESIGN.md               how the site and the avatars should look and move

@@ -136,3 +136,28 @@ button.icon:hover{color:var(--orange-d);border-color:var(--orange)}
 .sidecol pre{white-space:pre;word-break:normal}
 .nav .field{z-index:0}
 .nav .brand,.nav nav{position:relative;z-index:1}
+
+/* ---------- mobile navbar: links collapse into a hamburger menu ---------- */
+.menu-btn{display:none;width:40px;height:40px;padding:0;place-items:center;border-radius:50%;position:relative;z-index:1;color:var(--head)}
+@media(max-width:640px){
+  .nav{padding:0 16px}
+  .brand{font-size:21px}
+  .menu-btn{display:grid}
+  .nav nav#site-menu{display:none;position:absolute;top:100%;left:0;right:0;height:auto;flex-direction:column;gap:2px;padding:8px 12px 12px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(0,0,0,.08)}
+  .nav nav#site-menu.open{display:flex}
+  .nav nav#site-menu a{height:46px;padding:0 14px;border-bottom:none;border-radius:10px;font-size:15px}
+  .nav nav#site-menu a.active{background:#fff4ec;color:var(--orange-d)}
+}
+
+/* ---------- editor controls on small screens ---------- */
+.seg{border-radius:22px}
+.seg button{white-space:nowrap}
+.controls{flex-wrap:wrap;row-gap:10px}
+.controls .seg{flex-wrap:nowrap;flex:none}
+.controls .switch,.controls button.icon,.codebar button.icon{flex:none}
+@media(max-width:480px){
+  .controls{gap:10px 14px}
+  .controls .seg{order:-1;width:100%}
+  .controls .seg button{flex:1;text-align:center}
+}
+.hint code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;background:#f6f4f1;border-radius:5px;padding:1px 5px;color:#3b3935}

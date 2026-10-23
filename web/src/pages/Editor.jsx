@@ -135,8 +135,8 @@ export default function Editor() {
           </div>
           <pre>{code}</pre>
           <p className="hint">
-            {TESTED[fw] ? 'Mirrors code that runs in this site.' : 'Same two calls, adapted to this framework. Not run here, so treat it as a starting point.'}
-            {' '}Imports are local paths until the package is published.
+            {TESTED[fw] ? 'Tested against the published package.' : 'Same calls, adapted to this framework. Not run here, so treat it as a starting point.'}
+            {' '}Install it with <code>npm install blobmates</code>.
           </p>
           <details className="picked">
             <summary>Picked by the name</summary>

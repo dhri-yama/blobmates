@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Polypal } from '../components.jsx';
 import { P } from '../polypal.js';
-import { FRAMEWORKS, TESTED, snippet } from '../snippets.js';
+import { FRAMEWORKS, INSTALL, TESTED, snippet } from '../snippets.js';
 
 const SECTIONS = [
   ['overview', 'Overview'], ['install', 'Install'], ['static', 'Static avatars'], ['live', 'Live avatars'], ['frameworks', 'Frameworks'],
@@ -44,19 +44,18 @@ export default function Docs() {
         </div>
 
         <h2 id="install">Install</h2>
-        <div className="note">Polypals is not published to npm yet. Until it is, copy <code>core/js/src/</code> and <code>core/assets/parts.json</code> from the repository into your project and import them by path. The examples below use those files.</div>
-        <Code>{`import { makePolypal } from "./polypals/index.js";
-import { animate } from "./polypals/runtime.js"; // only for live avatars
-import parts from "./polypals/parts.json";
-
-const polypal = makePolypal(parts);`}</Code>
+        <Code>{INSTALL}</Code>
+        <p>Then import what you need. TypeScript types are included.</p>
+        <Code>{`import { polypal } from "@dhriyama/polypals";                  // static avatars
+import { animate } from "@dhriyama/polypals/runtime";          // live avatars (browser only)
+import { Polypal, LivePolypal } from "@dhriyama/polypals/react"; // React components`}</Code>
 
         <h2 id="static">Static avatars</h2>
         <p><code>polypal(seed, options)</code> returns an SVG string. There is no animation and nothing runs in the browser afterwards, so it suits profile pictures, lists, emails and server rendering.</p>
         <Code>{`const svg = polypal("sagar", { mood: "happy", size: 96, shape: "circle" });
 
 // in React
-<span dangerouslySetInnerHTML={{ __html: svg }} />`}</Code>
+<Polypal seed="sagar" mood="happy" size={96} shape="circle" />`}</Code>
         <p>A different <code>mood</code> is a different picture. To change expression, swap the image.</p>
 
         <h2 id="live">Live avatars</h2>
@@ -157,7 +156,7 @@ rt.destroy();`}</Code>
           <thead><tr><th>Where</th><th>Static</th><th>Live</th></tr></thead>
           <tbody>
             <tr><td>Web, React, Electron</td><td>yes</td><td>yes</td></tr>
-            <tr><td>Node (server rendering)</td><td>yes, untested</td><td>no</td></tr>
+            <tr><td>Node (server rendering)</td><td>yes</td><td>no</td></tr>
             <tr><td>Android, iOS and Mac apps</td><td>show an SVG made by the JS core</td><td>not yet</td></tr>
           </tbody>
         </table>

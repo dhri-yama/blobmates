@@ -42,7 +42,7 @@ There are no automated tests yet. Verify changes by rebuilding and looking at th
 
 - Routing is a tiny hash router (`router.js`), so any static host works. Add pages in `web/src/pages/` and register them in `App.jsx`.
 - Code samples in the editor and docs come from `web/src/snippets.js`. Update it when the public API changes, and update the Docs page (`pages/Docs.jsx`) in the same change. Only the JavaScript, React and HTML samples are known to run; Vue, Svelte and Angular are untested.
-- The package is not published, so every sample imports local paths like `./polypals/index.js`.
+- Samples import the real package (`@dhriyama/polypals`). The version in the plain-HTML CDN samples comes from the installed package's `package.json`, so it updates when you bump the dependency.
 - Editor controls use "pins": an unpinned axis follows the seed. Keep that behavior when adding controls (a pin is an option key, `undefined` means auto).
 
 ## Gotchas learned the hard way
@@ -50,6 +50,8 @@ There are no automated tests yet. Verify changes by rebuilding and looking at th
 - After editing `styles.css` with scripted find-and-replace, check that braces are balanced. A stray `@media(...){` once swallowed every rule after it and left the site unstyled on wide screens only.
 - The preview pane here is narrow (around 540 CSS px). Layouts that switch at 560px, 760px or 1100px need an emulated viewport to check.
 - Rebuild `web/dist` (`npm run build`) after changing the app, or the preview server shows the old version.
+- The web app depends on the PUBLISHED package, not on `core/js`. Library changes do not show up in the site until you publish and update the dependency. To try unpublished library changes in the site, run `cd web && npm install ../core/js` (and do not commit that change to `package.json`).
+- npm refused the name `polypals` as too similar to an existing `poly-pals`, which is why the package is scoped as `@dhriyama/polypals`.
 
 ## Conventions
 
@@ -82,9 +84,9 @@ Every release gets an entry in `core/js/CHANGELOG.md` and a git tag `vX.Y.Z` on 
 2. `node core/tools/build-parts.mjs && (cd core/js && npm test)`.
 3. `cd core/js && npm pack` and install the tarball in a scratch project to check the real package (imports, React server rendering, types).
 4. Commit and push, then publish: `cd core/js && npm publish` (needs `npm login` and 2FA; the `public` access is set in `package.json`). `prepublishOnly` reruns the generator and the tests.
-5. Tag and push the tag: `git tag vX.Y.Z && git push origin vX.Y.Z`. Optionally create a GitHub release from the tag with the changelog text.
-6. After the first publish only: switch the Docs page, `snippets.js` and the README from local `./polypals/...` imports to `@dhriyama/polypals`.
+5. Tag the commit that was published (not a later one) and push the tag: `git tag -a vX.Y.Z <commit> -m "..." && git push origin vX.Y.Z`. Optionally create a GitHub release from the tag with the changelog text.
+6. Update the site: `cd web && npm install @dhriyama/polypals@latest`, rebuild, and check the editor and docs samples.
 
 ## Known gaps
 
-Unit tests exist for the JS library only. There are no stored seed outputs for ports to check against, no Kotlin or Swift ports, and the web app does not yet use the packaged React components (it has its own). The `togepi` shape is inspired by a Nintendo/Pokémon character, so flag it if the project is ever distributed commercially.
+Unit tests exist for the JS library only. There are no stored seed outputs for ports to check against, no Kotlin or Swift ports, and the web app still uses its own `Polypal` and `LivePolypal` components (in `web/src/components.jsx`) instead of the packaged ones. The `togepi` shape is inspired by a Nintendo/Pokémon character, so flag it if the project is ever distributed commercially.

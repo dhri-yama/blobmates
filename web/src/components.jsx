@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { animate } from '../../core/js/src/runtime.js';
+import { animate } from '@dhriyama/polypals/runtime';
 import { polypal } from './polypal.js';
 
 // Static avatar: one SVG string, no JavaScript running afterwards.

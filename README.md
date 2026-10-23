@@ -23,13 +23,14 @@ The site uses hash routes (`#/editor`, `#/docs`), so it works on any static host
 
 ## Using the library
 
-Polypals is not published to npm yet. Until it is, copy `core/js/src/` and `core/assets/parts.json` into your project and import them by path.
+Install it from npm:
+
+```bash
+npm install @dhriyama/polypals
+```
 
 ```js
-import { makePolypal } from "./polypals/index.js";
-import parts from "./polypals/parts.json";
-
-const polypal = makePolypal(parts);
+import { polypal } from "@dhriyama/polypals";
 
 // Static: returns an SVG string
 const svg = polypal("sagar", { mood: "happy", size: 96 });
@@ -38,10 +39,19 @@ const svg = polypal("sagar", { mood: "happy", size: 96 });
 polypal("sagar", { body: "cloud", color: "#F4A3C9", eyes: "glasses-round" });
 ```
 
+React components:
+
+```jsx
+import { Polypal, LivePolypal } from "@dhriyama/polypals/react";
+
+<Polypal seed="sagar" size={64} shape="circle" />
+<LivePolypal seed="sagar" mood="happy" react />
+```
+
 Live avatars (browser only):
 
 ```js
-import { animate } from "./polypals/runtime.js";
+import { animate } from "@dhriyama/polypals/runtime";
 
 const rt = animate(document.querySelector("#box"), polypal, {
   seed: "sagar",
@@ -56,7 +66,7 @@ rt.poke();               // trigger the tap reaction from code
 rt.destroy();
 ```
 
-The Docs page in the app lists every option and shows copy-paste snippets for React, Vue, Svelte, Angular and plain HTML. Only the JavaScript, React and HTML snippets mirror code that runs in this repo. The others are untested starting points.
+The Docs page in the app lists every option and shows copy-paste snippets for React, Vue, Svelte, Angular and plain HTML. The JavaScript, React and HTML snippets are tested against the published package. The Vue, Svelte and Angular ones use the same calls but are not run.
 
 ## How it works
 
@@ -84,7 +94,7 @@ DESIGN.md               how the site and the avatars should look and move
 ## Status and limits
 
 - Web only. Kotlin and Swift ports are planned (they would read the same `parts.json`), but they do not exist yet.
-- Ready to publish to npm as `@dhriyama/polypals` (`core/js`, with React components and types), but not published yet.
+- Published to npm as [`@dhriyama/polypals`](https://www.npmjs.com/package/@dhriyama/polypals) (source in `core/js`), with React components and TypeScript types.
 - Unit tests cover the JavaScript library only. There are no stored seed outputs to check other platforms against yet.
 - Live avatars redraw their SVG as they move. They are fine for a handful on a page, not for hundreds.
 - A static SVG cannot react or animate on its own. Live behavior needs the runtime.

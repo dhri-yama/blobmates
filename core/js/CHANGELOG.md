@@ -2,7 +2,7 @@
 
 All notable changes to `@dhriyama/polypals`. Versions follow [semver](https://semver.org). See "Versioning" in `CLAUDE.md` for what counts as a patch, minor or major change.
 
-## 0.1.0 (unreleased)
+## 0.1.0 - 2026-10-23
 
 First release.
 

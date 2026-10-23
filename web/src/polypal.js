@@ -1,5 +1,5 @@
-import { makePolypal } from '../../core/js/src/index.js';
-import parts from '../../core/assets/parts.json';
+// The site runs on the published package, so it exercises exactly what users install.
+import { polypal, parts } from '@dhriyama/polypals';
 
+export { polypal };
 export const P = parts;
-export const polypal = makePolypal(parts);

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { animate } from '../../core/js/src/runtime.js';
+import { animate } from '@dhriyama/polypals/runtime';
 import { polypal } from './polypal.js';
 
 // Hosts the library runtime (mood motion, blinking, gaze, roam). React only feeds it props.

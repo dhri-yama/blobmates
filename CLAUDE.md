@@ -57,13 +57,33 @@ There are no automated tests yet. Verify changes by rebuilding and looking at th
 - Match the surrounding style: short comments that explain why, not what.
 - Do not publish, push or deploy without being asked. The GitHub repo is public.
 
+## Versioning
+
+Two numbers, kept separate:
+
+- **Package version** (`core/js/package.json`): semver, shown on npm.
+- **Parts version** (`version` in `core/tools/build-parts.mjs`, stored in `parts.json`): bump it whenever a change alters what existing names pick, meaning the seed logic, the draw order, or the lists of shapes, mouths, brows, accessories or palettes. Pure additions to those lists count, because the seed indexes into them.
+
+Rules for the package version:
+
+| Change | Bump |
+|---|---|
+| Bug fix, docs, motion tuning, new art that does not change picks | patch |
+| New option, mood, overlay or entry point; anything that keeps existing avatars the same | minor |
+| Changes what an existing name picks, removes or renames an option or export | major |
+
+While the version is 0.x, a change to what names pick may ship in a minor bump, but it must be listed in the changelog. From 1.0.0, it is a major bump. Tell users to pin `body` (and other options) if an avatar must never change across upgrades.
+
+Every release gets an entry in `core/js/CHANGELOG.md` and a git tag `vX.Y.Z` on the release commit.
+
 ## Releasing to npm
 
-1. Bump `version` in `core/js/package.json` (semver). Changing which shape a name picks is a breaking change for people who rely on exact avatars.
+1. Update `core/js/CHANGELOG.md`, then bump the version: `cd core/js && npm version <patch|minor|major> --no-git-tag-version`. If the parts changed in a way that changes picks, also bump the parts version first (see above) and regenerate.
 2. `node core/tools/build-parts.mjs && (cd core/js && npm test)`.
 3. `cd core/js && npm pack` and install the tarball in a scratch project to check the real package (imports, React server rendering, types).
-4. `cd core/js && npm publish` (needs `npm login` and 2FA; the `public` access is set in `package.json`). `prepublishOnly` reruns the generator and the tests.
-5. After the first publish: switch the Docs page, `snippets.js` and the README from local `./polypals/...` imports to `polypals`.
+4. Commit and push, then publish: `cd core/js && npm publish` (needs `npm login` and 2FA; the `public` access is set in `package.json`). `prepublishOnly` reruns the generator and the tests.
+5. Tag and push the tag: `git tag vX.Y.Z && git push origin vX.Y.Z`. Optionally create a GitHub release from the tag with the changelog text.
+6. After the first publish only: switch the Docs page, `snippets.js` and the README from local `./polypals/...` imports to `polypals`.
 
 ## Known gaps
 

@@ -22,7 +22,7 @@
     "./react": { "types": "./types/react.d.ts", "default": "./src/react.js" },
     "./package.json": "./package.json"
   },
-  "files": ["src", "types", "README.md", "LICENSE"],
+  "files": ["src", "types", "README.md", "CHANGELOG.md", "LICENSE"],
   "scripts": {
     "test": "node --test",
     "prepublishOnly": "node ../tools/build-parts.mjs && npm test"

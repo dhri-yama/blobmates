@@ -1,0 +1,42 @@
+{
+  "name": "polypals",
+  "version": "0.1.0",
+  "description": "Friendly blob avatars that feel alive: deterministic from a name, editable, and animated.",
+  "keywords": ["avatar", "avatars", "blob", "identicon", "profile-picture", "svg", "generative", "mascot", "react", "animation"],
+  "license": "MIT",
+  "author": "dhri-yama (https://github.com/dhri-yama)",
+  "homepage": "https://github.com/dhri-yama/polypals#readme",
+  "bugs": "https://github.com/dhri-yama/polypals/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhri-yama/polypals.git",
+    "directory": "core/js"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./src/main.js",
+  "types": "./types/main.d.ts",
+  "exports": {
+    ".": { "types": "./types/main.d.ts", "default": "./src/main.js" },
+    "./runtime": { "types": "./types/runtime.d.ts", "default": "./src/runtime.js" },
+    "./react": { "types": "./types/react.d.ts", "default": "./src/react.js" },
+    "./package.json": "./package.json"
+  },
+  "files": ["src", "types", "README.md", "LICENSE"],
+  "scripts": {
+    "test": "node --test",
+    "prepublishOnly": "node ../tools/build-parts.mjs && npm test"
+  },
+  "peerDependencies": {
+    "react": ">=17"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

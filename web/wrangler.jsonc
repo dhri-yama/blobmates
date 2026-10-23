@@ -1,0 +1,9 @@
+{
+  // Cloudflare Workers (static assets): serves the built site from ./dist.
+  // The name must match the Worker's name in the Cloudflare dashboard.
+  "name": "blobmates",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}

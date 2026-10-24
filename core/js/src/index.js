@@ -4,25 +4,10 @@
 // Pins: style, body, color (hex or palette id), variant (eye variant #), eyeSize, faceY, mouth, brow,
 //       top | eyes | face | cheeks (accessory id, or "none"), accColor (hex).
 
-const fnv1a = (s) => {
-  let h = 0x811c9dc5;
-  for (const b of new TextEncoder().encode(s)) h = Math.imul(h ^ b, 0x01000193) >>> 0;
-  return h >>> 0;
-};
-const mulberry32 = (a) => () => {
-  a = (a + 0x6d2b79f5) | 0;
-  let t = Math.imul(a ^ (a >>> 15), 1 | a);
-  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-  return (t ^ (t >>> 14)) >>> 0;
-};
-const num = (x) => String(+x.toFixed(2));
+import { fnv1a, mulberry32, num, shade } from './internals.js';
+
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const GAZE = 3.5;
-// Darker tint of the body color for details (plates, spots, frills). Integer math so ports match.
-const shade = (hex) => {
-  if (!/^#[0-9a-f]{6}$/i.test(hex)) return hex;
-  return '#' + [1, 3, 5].map((i) => Math.floor((parseInt(hex.slice(i, i + 2), 16) * 78) / 100).toString(16).padStart(2, '0')).join('');
-};
 const SLOTS = ['top', 'eyes', 'face', 'cheeks'];
 
 export function makeBlobmate(P) {

@@ -5,3 +5,7 @@ dist/
 # local tool state (machine-specific paths and caches)
 .claude/
 .impeccable/
+
+# Swift
+.build/
+.swiftpm/

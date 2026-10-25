@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Blobmate } from '../components.jsx';
 import { P } from '../blobmate.js';
-import { FRAMEWORKS, INSTALL, TESTED, snippet } from '../snippets.js';
+import { FRAMEWORKS, INSTALL, SWIFT_INSTALL, TESTED, snippet } from '../snippets.js';
 
 const SECTIONS = [
   ['overview', 'Overview'], ['install', 'Install'], ['static', 'Static avatars'], ['live', 'Live avatars'], ['frameworks', 'Frameworks'],
@@ -45,6 +45,8 @@ export default function Docs() {
 
         <h2 id="install">Install</h2>
         <Code>{INSTALL}</Code>
+        <p>For Swift (Mac and iOS apps), add the package in Xcode with File, Add Package Dependencies, or in <code>Package.swift</code>. It has no dependencies. See the Swift sample under Frameworks.</p>
+        <Code>{SWIFT_INSTALL}</Code>
         <p>Then import what you need. TypeScript types are included.</p>
         <Code>{`import { blobmate } from "blobmates";                  // static avatars
 import { animate } from "blobmates/runtime";          // live avatars (browser only)
@@ -157,10 +159,11 @@ rt.destroy();`}</Code>
           <tbody>
             <tr><td>Web, React, Electron</td><td>yes</td><td>yes</td></tr>
             <tr><td>Node (server rendering)</td><td>yes</td><td>no</td></tr>
-            <tr><td>Android, iOS and Mac apps</td><td>show an SVG made by the JS core</td><td>not yet</td></tr>
+            <tr><td>Mac and iOS apps (Swift, macOS 13+, iOS 16+)</td><td>yes (<code>BlobmateView</code>, SVG, PNG, <code>NSImage</code>, <code>UIImage</code>)</td><td>yes (<code>LiveBlobmateView</code>)</td></tr>
+            <tr><td>Android</td><td>show an SVG made by the JS core</td><td>not yet</td></tr>
           </tbody>
         </table>
-        <p>Native Kotlin and Swift ports of the core are planned. They would read the same <code>parts.json</code> so the shapes and moods match.</p>
+        <p>The Swift package draws with Core Graphics and has no dependencies. It gives the same SVG text as the JavaScript core for the same name (checked against 478 stored pictures), and moves like the web runtime (checked frame by frame). A Kotlin port is planned.</p>
       </article>
     </div>
   );

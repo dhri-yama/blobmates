@@ -19,7 +19,7 @@ public struct Gaze: Equatable, Sendable {
 }
 
 /// Everything you can pass to draw a Blobmate. Anything you leave out is decided by the name (that is what "pinned" means).
-public struct BlobmateOptions: Sendable {
+public struct BlobmateOptions: Equatable, Sendable {
     // Look (pins)
     public var style: String?
     public var body: String?

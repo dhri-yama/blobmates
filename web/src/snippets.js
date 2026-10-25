@@ -7,9 +7,11 @@ const NAME = pkg.name;
 const CDN = `https://cdn.jsdelivr.net/npm/${NAME}@${pkg.version}/src`;
 
 export const INSTALL = `npm install ${NAME}`;
+// Swift Package Manager: Xcode > File > Add Package Dependencies, or in Package.swift
+export const SWIFT_INSTALL = `.package(url: "https://github.com/dhri-yama/blobmates", from: "0.2.0")`;
 
 export const FRAMEWORKS = [
-  ['js', 'JavaScript'], ['react', 'React'], ['vue', 'Vue'], ['svelte', 'Svelte'], ['angular', 'Angular'], ['html', 'HTML'],
+  ['js', 'JavaScript'], ['react', 'React'], ['vue', 'Vue'], ['svelte', 'Svelte'], ['angular', 'Angular'], ['html', 'HTML'], ['swift', 'Swift'],
 ];
 
 // Which samples are known to run: the React components and the plain JavaScript calls are tested against the
@@ -33,7 +35,32 @@ function jsxProps(entries) {
   return entries.map(([k, v]) => (v === true ? k : typeof v === 'string' ? `${k}=${JSON.stringify(v)}` : `${k}={${typeof v === 'object' ? lit(v) : JSON.stringify(v)}}`)).join(' ');
 }
 
+// Swift: the same options as Swift code (unpinned means leave it out). Pins become BlobmateOptions arguments.
+// Swift needs the arguments in the order BlobmateOptions declares them.
+const SWIFT_ORDER = ['style', 'body', 'color', 'variant', 'eyeSize', 'faceY', 'mouth', 'brow', 'top', 'eyes', 'face', 'cheeks', 'accColor', 'mood', 'gaze', 'blink', 'overlayFrame', 'shape', 'bg', 'size'];
+function swiftOptions(o) {
+  const rank = (k) => (SWIFT_ORDER.includes(k) ? SWIFT_ORDER.indexOf(k) : SWIFT_ORDER.length);
+  return Object.entries(o).sort((a, b) => rank(a[0]) - rank(b[0])).map(([k, v]) => `${k}: ${k === 'shape' ? `.${v}` : JSON.stringify(v)}`).join(', ');
+}
+
+function swiftSnippet(kind, s) {
+  const pins = swiftOptions(s.pins);
+  if (kind !== 'live') {
+    const opts = swiftOptions({ ...s.pins, ...(s.mood !== 'neutral' ? { mood: s.mood } : {}) });
+    return `import SwiftUI\nimport Blobmates\n\nstruct Example: View {\n    var body: some View {\n        BlobmateView(seed: ${JSON.stringify(s.name)}, size: 96${opts ? `, options: BlobmateOptions(${opts})` : ''})\n    }\n}`;
+  }
+  const args = [`seed: ${JSON.stringify(s.name)}`, ...(s.roam ? [] : ['size: 120'])];
+  if (pins) args.push(`pins: BlobmateOptions(${pins})`);
+  if (s.mood !== 'neutral') args.push(`mood: ${JSON.stringify(s.mood)}`);
+  if (s.motion !== 'follow') args.push(`motion: .${s.motion}`);
+  if (s.roam) args.push('roam: RoamOptions(speed: 70)');
+  if (s.react) args.push('react: ReactOptions()');
+  const view = `LiveBlobmateView(${args.join(', ')})`;
+  return `import SwiftUI\nimport Blobmates\n\nstruct Example: View {\n    var body: some View {\n        ${s.roam ? `// with roam it fills the space it is given, so give it a frame\n        ${view}\n            .frame(height: 320)` : view}\n    }\n}\n\n// Stops moving when "Reduce motion" is on. Eyes follow the pointer on the Mac.`;
+}
+
 export function snippet(fw, kind, s) {
+  if (fw === 'swift') return swiftSnippet(kind, s);
   const staticOpts = lit(s.mood !== 'neutral' ? { ...s.pins, mood: s.mood } : s.pins);
   const call = `blobmate(${JSON.stringify(s.name)}, ${staticOpts})`;
   const live = (pad) => liveOptions(s, pad);

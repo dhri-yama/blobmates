@@ -1,5 +1,7 @@
 # Blobmates
 
+<p align="center"><img src="docs/images/hero.svg" alt="Eight different Blobmates, each made from a name" width="880"></p>
+
 Friendly blob avatars that feel alive. Give it any string (a username, an email, a bot name) and it always draws the same character: shape, color, eyes, mouth and sometimes an accessory. Then you can make it blink, follow the pointer, wander around and react to taps.
 
 - **Deterministic.** The same string gives the same Blobmate everywhere.
@@ -9,6 +11,8 @@ Friendly blob avatars that feel alive. Give it any string (a username, an email,
 - **Plain SVG.** Static avatars are just an SVG string, with no dependencies.
 
 **Live site:** https://blobmates.pages.dev
+
+<p align="center"><img src="docs/images/moods.svg" alt="The same Blobmate in 18 moods" width="840"></p>
 
 The site (landing page, use cases, editor and docs) is built with React and lives in `web/`.
 

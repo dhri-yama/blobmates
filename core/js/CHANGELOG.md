@@ -2,7 +2,7 @@
 
 All notable changes to `blobmates`. Versions follow [semver](https://semver.org). See "Versioning" in `CLAUDE.md` for what counts as a patch, minor or major change.
 
-## Unreleased (planned 0.2.0)
+## 0.2.0 - 2026-10-28
 
 - Swift package (macOS 13+, iOS 16+): `Blobmates.svg`, `BlobmateView`, `LiveBlobmateView`, PNG, `NSImage` and `UIImage` output, with its own Core Graphics renderer and the same motion as the web runtime.
 - Shared contract in `core/spec`: stored test vectors that the JS and Swift code both pass.

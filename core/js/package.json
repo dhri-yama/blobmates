@@ -1,8 +1,25 @@
 {
   "name": "blobmates",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Friendly blob avatars that feel alive: deterministic from a name, editable, and animated.",
-  "keywords": ["avatar", "avatars", "blob", "identicon", "profile-picture", "svg", "generative", "mascot", "react", "animation", "swift", "swiftui", "avatar-generator", "svg-avatar", "profile-image", "deterministic"],
+  "keywords": [
+    "avatar",
+    "avatars",
+    "blob",
+    "identicon",
+    "profile-picture",
+    "svg",
+    "generative",
+    "mascot",
+    "react",
+    "animation",
+    "swift",
+    "swiftui",
+    "avatar-generator",
+    "svg-avatar",
+    "profile-image",
+    "deterministic"
+  ],
   "license": "MIT",
   "author": "dhri-yama (https://github.com/dhri-yama)",
   "homepage": "https://blobmates.pages.dev/",
@@ -17,12 +34,27 @@
   "main": "./src/main.js",
   "types": "./types/main.d.ts",
   "exports": {
-    ".": { "types": "./types/main.d.ts", "default": "./src/main.js" },
-    "./runtime": { "types": "./types/runtime.d.ts", "default": "./src/runtime.js" },
-    "./react": { "types": "./types/react.d.ts", "default": "./src/react.js" },
+    ".": {
+      "types": "./types/main.d.ts",
+      "default": "./src/main.js"
+    },
+    "./runtime": {
+      "types": "./types/runtime.d.ts",
+      "default": "./src/runtime.js"
+    },
+    "./react": {
+      "types": "./types/react.d.ts",
+      "default": "./src/react.js"
+    },
     "./package.json": "./package.json"
   },
-  "files": ["src", "types", "README.md", "CHANGELOG.md", "LICENSE"],
+  "files": [
+    "src",
+    "types",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "node --test",
     "prepublishOnly": "node ../tools/build-parts.mjs && npm test"
@@ -31,7 +63,9 @@
     "react": ">=17"
   },
   "peerDependenciesMeta": {
-    "react": { "optional": true }
+    "react": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"

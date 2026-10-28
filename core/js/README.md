@@ -7,7 +7,7 @@ Friendly blob avatars that feel alive. Give it any string (a username, an email,
 - **18 moods**, each with its own face and its own movement.
 - **Plain SVG:** static avatars are just an SVG string. No dependencies.
 
-Try the editor and read the docs: https://github.com/dhri-yama/blobmates
+Try the editor and read the docs: https://blobmates.pages.dev/ (source: https://github.com/dhri-yama/blobmates)
 
 ## Install
 

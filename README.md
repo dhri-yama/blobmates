@@ -8,7 +8,7 @@ Friendly blob avatars that feel alive. Give it any string (a username, an email,
 - **Alive (optional).** Blinking, eyes that follow the pointer, roaming around a box, and a reaction when tapped.
 - **Plain SVG.** Static avatars are just an SVG string, with no dependencies.
 
-**Live site:** https://blobmates.dhrijethi.workers.dev
+**Live site:** https://blobmates.pages.dev
 
 The site (landing page, use cases, editor and docs) is built with React and lives in `web/`.
 
